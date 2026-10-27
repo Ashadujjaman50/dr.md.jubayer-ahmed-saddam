@@ -54,9 +54,10 @@ export default function Services({ onSelectService, onOpenAppointment }) {
                   type="button"
                   className="service-btn-details"
                   onClick={() => onSelectService(service)}
+                  title="View detailed clinical information"
                 >
-                  <span>Detailed Clinical Info</span>
-                  <ArrowRight size={15} />
+                  <span>Clinical Details</span>
+                  <ArrowRight size={14} />
                 </button>
                 <button
                   type="button"
