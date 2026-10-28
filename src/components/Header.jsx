@@ -86,7 +86,7 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
             aria-label="Book Appointment"
             title="Book Appointment"
           >
-            <Calendar size={16} />
+            <Calendar className="header-calendar-icon" size={24} />
             <span className="header-book-text">Book Appointment</span>
           </button>
 
