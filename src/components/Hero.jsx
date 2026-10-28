@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Phone, Award, Clock, MapPin, CheckCircle, FileText, ChevronRight } from 'lucide-react';
+import { Calendar, Phone, Award, Clock, CheckCircle } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import './Hero.css';
 
@@ -81,26 +81,6 @@ export default function Hero({ onOpenAppointment, onOpenContact }) {
               <Phone size={17} />
               <span>Contact Chamber</span>
             </button>
-
-            <a 
-              href="/assets/cv.pdf" 
-              download="Dr-Md-Jubayer-Ahmed-Saddam-CV.pdf"
-              className="hero-cv-link"
-              title="Download Doctor CV / Academic Profile"
-            >
-              <FileText size={16} />
-              <span>Curriculum Vitae</span>
-            </a>
-          </div>
-
-          {/* Chamber Quick Contact Hotline */}
-          <div className="hero-hotline-notice">
-            <MapPin size={15} className="notice-icon" />
-            <span>Serial & Patient Information: </span>
-            <a href={`tel:${DOCTOR_INFO.chamber.phone}`} className="hotline-number">
-              {DOCTOR_INFO.chamber.phone}
-            </a>
-            <span className="hotline-loc"> (Station Rd, Ashuganj)</span>
           </div>
         </div>
 
