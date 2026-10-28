@@ -11,9 +11,40 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll and close on Escape / desktop resize
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth > 1024 && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      document.body.classList.remove('menu-open');
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [mobileMenuOpen]);
+
+  const closeMenu = () => setMobileMenuOpen(false);
 
   return (
     <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
@@ -62,43 +93,58 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
             type="button"
             className="mobile-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation-drawer"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Backdrop & Drawer */}
       {mobileMenuOpen && (
-        <div className="mobile-drawer">
-          <nav className="mobile-nav">
-            <a href="#about" onClick={() => setMobileMenuOpen(false)}>About Dr. Saddam</a>
-            <a href="#specialties" onClick={() => setMobileMenuOpen(false)}>Surgical Specialties</a>
-            <a href="#affiliations" onClick={() => setMobileMenuOpen(false)}>Affiliations</a>
-            <a href="#schedule" onClick={() => setMobileMenuOpen(false)}>Chamber</a>
-            <a href="#reviews" onClick={() => setMobileMenuOpen(false)}>Consultation</a>
-            <button
-              type="button"
-              className="mobile-drawer-btn"
-              onClick={() => { setMobileMenuOpen(false); onOpenContact(); }}
-            >
-              Contact Inquiries
-            </button>
-            <div className="mobile-drawer-actions">
-              <a href={`tel:${DOCTOR_INFO.chamber.phone}`} className="mobile-phone-btn">
-                <Phone size={16} /> Serial: {DOCTOR_INFO.chamber.phone}
-              </a>
+        <>
+          <div
+            className="mobile-drawer-backdrop"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+          <div
+            id="mobile-navigation-drawer"
+            className="mobile-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site Navigation"
+          >
+            <nav className="mobile-nav" aria-label="Mobile Navigation">
+              <a href="#about" onClick={closeMenu}>About Dr. Saddam</a>
+              <a href="#specialties" onClick={closeMenu}>Surgical Specialties</a>
+              <a href="#affiliations" onClick={closeMenu}>Affiliations</a>
+              <a href="#schedule" onClick={closeMenu}>Chamber</a>
+              <a href="#reviews" onClick={closeMenu}>Consultation</a>
               <button
                 type="button"
-                className="btn btn-primary mobile-appointment-btn"
-                onClick={() => { setMobileMenuOpen(false); onOpenAppointment(); }}
+                className="mobile-drawer-btn"
+                onClick={() => { closeMenu(); onOpenContact(); }}
               >
-                <Calendar size={16} /> Request Appointment
+                Contact Inquiries
               </button>
-            </div>
-          </nav>
-        </div>
+              <div className="mobile-drawer-actions">
+                <a href={`tel:${DOCTOR_INFO.chamber.phone}`} className="mobile-phone-btn" onClick={closeMenu}>
+                  <Phone size={16} /> Serial: {DOCTOR_INFO.chamber.phone}
+                </a>
+                <button
+                  type="button"
+                  className="btn btn-primary mobile-appointment-btn"
+                  onClick={() => { closeMenu(); onOpenAppointment(); }}
+                >
+                  <Calendar size={16} /> Request Appointment
+                </button>
+              </div>
+            </nav>
+          </div>
+        </>
       )}
     </header>
   );

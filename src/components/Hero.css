@@ -1,7 +1,7 @@
 .hero-section {
   position: relative;
-  padding-top: 105px;
-  padding-bottom: 45px;
+  padding-top: clamp(84px, 8vw, 108px);
+  padding-bottom: clamp(32px, 5vw, 48px);
   background: linear-gradient(180deg, #F0FDFA 0%, #FFFFFF 100%);
   overflow: hidden;
 }
@@ -10,7 +10,7 @@
   display: grid;
   grid-template-columns: 1.15fr 0.95fr;
   align-items: center;
-  gap: 2.5rem;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
   position: relative;
 }
 
@@ -25,7 +25,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 }
 
 .hero-title {
@@ -35,7 +35,7 @@
 }
 
 .hero-greeting {
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
   font-weight: 600;
   color: var(--color-primary-dark);
   text-transform: uppercase;
@@ -44,7 +44,7 @@
 }
 
 .hero-name {
-  font-size: 2.65rem;
+  font-size: clamp(1.85rem, 4vw + 0.5rem, 2.65rem);
   font-weight: 800;
   color: var(--color-dark);
   line-height: 1.15;
@@ -52,14 +52,14 @@
 }
 
 .hero-bangla-name {
-  font-size: 1.35rem;
+  font-size: clamp(1.1rem, 2vw + 0.3rem, 1.35rem);
   font-weight: 700;
   color: var(--color-primary-dark);
   margin-top: 0.25rem;
 }
 
 .hero-designation {
-  font-size: 1.05rem;
+  font-size: clamp(0.925rem, 1.2vw + 0.3rem, 1.05rem);
   color: var(--color-dark-muted);
   line-height: 1.5;
   margin-bottom: 1.25rem;
@@ -105,7 +105,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.825rem;
+  font-size: clamp(0.75rem, 1vw + 0.2rem, 0.825rem);
   font-weight: 600;
   color: var(--color-dark-muted);
   background: var(--color-gray-50);
@@ -116,6 +116,7 @@
 
 .spec-icon {
   color: var(--color-primary);
+  flex-shrink: 0;
 }
 
 /* Schedule highlight banner */
@@ -146,6 +147,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  min-width: 0;
 }
 
 .schedule-days-title {
@@ -158,7 +160,6 @@
   font-size: 0.925rem;
   font-weight: 700;
   color: var(--color-dark);
-  white-space: nowrap;
 }
 
 /* Actions */
@@ -171,53 +172,12 @@
 
 .hero-btn-main {
   padding: 0.8rem 1.6rem;
+  min-height: 46px;
 }
 
 .hero-btn-sub {
   padding: 0.8rem 1.4rem;
-}
-
-.hero-cv-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-primary-dark);
-  padding: 0.5rem 0.85rem;
-  border-radius: var(--radius-full);
-  transition: all 0.2s ease;
-}
-
-.hero-cv-link:hover {
-  background: var(--color-primary-light);
-  color: var(--color-primary-darker);
-}
-
-.hero-hotline-notice {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  font-size: 0.85rem;
-  color: var(--color-dark-muted);
-}
-
-.notice-icon {
-  color: var(--color-primary);
-}
-
-.hotline-number {
-  font-weight: 700;
-  color: var(--color-primary-dark);
-}
-
-.hotline-number:hover {
-  text-decoration: underline;
-}
-
-.hotline-loc {
-  color: var(--color-gray-500);
+  min-height: 46px;
 }
 
 /* Right Stage & Doctor Cutout */
@@ -226,7 +186,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  height: 520px;
+  min-height: 480px;
 }
 
 .hero-image-stage {
@@ -244,8 +204,8 @@
   top: 15%;
   left: 50%;
   transform: translateX(-50%);
-  width: 320px;
-  height: 320px;
+  width: clamp(240px, 35vw, 320px);
+  height: clamp(240px, 35vw, 320px);
   background: radial-gradient(circle, rgba(13, 148, 136, 0.18) 0%, rgba(2, 132, 199, 0.08) 50%, transparent 70%);
   border-radius: 50%;
   z-index: 1;
@@ -254,7 +214,7 @@
 .doctor-cutout-img {
   position: relative;
   z-index: 2;
-  height: 480px;
+  height: clamp(380px, 45vw, 480px);
   width: auto;
   max-width: 100%;
   object-fit: contain;
@@ -267,7 +227,12 @@
   box-shadow: var(--shadow-xl);
 }
 
-/* Floating stat cards positioned in negative space with ZERO overlap */
+/* Container for stat cards (desktop: contents; mobile: responsive grid) */
+.hero-stat-cards-container {
+  display: contents;
+}
+
+/* Floating stat cards positioned in negative space */
 .floating-stat-card {
   position: absolute;
   z-index: 3;
@@ -289,18 +254,18 @@
 }
 
 .card-top-left {
-  top: 8%;
-  left: -20px;
+  top: 6%;
+  left: -15px;
 }
 
 .card-top-right {
-  top: 18%;
-  right: -25px;
+  top: 16%;
+  right: -20px;
 }
 
 .card-bottom-right {
   bottom: 8%;
-  right: -30px;
+  right: -25px;
 }
 
 .stat-card-icon {
@@ -350,50 +315,103 @@
   white-space: nowrap;
 }
 
-/* Responsive */
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .card-top-left {
+    left: -5px;
+  }
+  .card-top-right {
+    right: -10px;
+  }
+  .card-bottom-right {
+    right: -10px;
+  }
+}
+
 @media (max-width: 1024px) {
   .hero-container {
     grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  .hero-name {
-    font-size: 2.25rem;
+    gap: 2.5rem;
   }
   .hero-image-wrapper {
+    min-height: auto;
+  }
+  .hero-image-stage {
     height: 420px;
+    max-width: 380px;
   }
   .doctor-cutout-img {
-    height: 380px;
+    height: 390px;
   }
   .card-top-left {
+    top: 4%;
     left: 0;
   }
   .card-top-right {
+    top: 14%;
     right: 0;
   }
   .card-bottom-right {
+    bottom: 6%;
     right: 0;
   }
 }
 
 @media (max-width: 640px) {
-  .hero-name {
-    font-size: 1.85rem;
-  }
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
-  }
-  .hero-btn-main, .hero-btn-sub {
     width: 100%;
   }
+  .hero-btn-main,
+  .hero-btn-sub {
+    width: 100%;
+    justify-content: center;
+  }
   .hero-image-wrapper {
-    height: 350px;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .hero-image-stage {
+    height: 330px;
+    max-width: 300px;
   }
   .doctor-cutout-img {
-    height: 320px;
+    height: 310px;
+  }
+  /* Instead of hiding stat cards, show as clean trust badges */
+  .hero-stat-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: 100%;
+    max-width: 360px;
+    z-index: 3;
   }
   .floating-stat-card {
-    display: none; /* Hide floating cards on small mobile screens to prevent clutter */
+    position: static;
+    transform: none;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.65rem 0.85rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .floating-stat-card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-specialties-box {
+    padding: 0.75rem 0.85rem;
+  }
+  .hero-schedule-banner {
+    padding: 0.75rem 0.85rem;
+  }
+  .schedule-hours-pill {
+    white-space: normal;
+    font-size: 0.85rem;
+    line-height: 1.35;
   }
 }

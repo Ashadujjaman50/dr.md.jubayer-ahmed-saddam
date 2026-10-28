@@ -1,13 +1,13 @@
 .affiliations-section {
-  padding-top: 4.5rem;
-  padding-bottom: 4.5rem;
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+  padding-bottom: clamp(3rem, 6vw, 4.5rem);
   background-color: var(--color-white);
   border-top: 1px solid var(--color-gray-200);
 }
 
 .affiliations-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 1.5rem;
 }
 
@@ -44,6 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .affil-icon-svg {
@@ -58,6 +59,7 @@
   background: white;
   border: 1px solid var(--color-gray-200);
   color: var(--color-dark-muted);
+  white-space: nowrap;
 }
 
 .affil-name {
@@ -84,4 +86,14 @@
   color: var(--color-gray-500);
   border-top: 1px dashed var(--color-gray-200);
   padding-top: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .affiliations-grid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+  .affiliation-card {
+    padding: 1.25rem;
+  }
 }

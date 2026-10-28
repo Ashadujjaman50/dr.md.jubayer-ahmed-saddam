@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Calendar, Clock, Phone, AlertCircle, CheckCircle2, Hospital } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import { submitAppointmentRequest } from '../services/appointmentService';
@@ -18,6 +18,31 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [preparedNotice, setPreparedNotice] = useState(null);
+
+  const handleReset = () => {
+    setPreparedNotice(null);
+    setFormData({
+      patientName: '',
+      phone: '',
+      appointmentDate: '',
+      serviceId: DOCTOR_INFO.services[0].id,
+      age: '',
+      gender: 'Male',
+      notes: ''
+    });
+    onClose();
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        handleReset();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -66,28 +91,20 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
     }
   };
 
-  const handleReset = () => {
-    setPreparedNotice(null);
-    setFormData({
-      patientName: '',
-      phone: '',
-      appointmentDate: '',
-      serviceId: DOCTOR_INFO.services[0].id,
-      age: '',
-      gender: 'Male',
-      notes: ''
-    });
-    onClose();
-  };
-
   return (
     <div className="modal-backdrop" onClick={handleReset}>
-      <div className="modal-dialog appointment-dialog" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-dialog appointment-dialog"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="appointment-modal-title"
+      >
         
         {/* Header */}
         <div className="modal-header">
           <div className="modal-title-group">
-            <h3 className="modal-title">Request Surgical Appointment</h3>
+            <h3 className="modal-title" id="appointment-modal-title">Request Surgical Appointment</h3>
             <span className="modal-subtitle">
               New Green Life Hospital, Ashuganj (Every Thursday 2:00 PM – 8:00 PM)
             </span>

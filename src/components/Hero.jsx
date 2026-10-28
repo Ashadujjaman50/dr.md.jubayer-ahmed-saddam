@@ -103,36 +103,39 @@ export default function Hero({ onOpenAppointment, onOpenContact }) {
               }}
             />
 
-            {/* Floating Card 1: Experience (Top Left negative space) */}
-            <div className="floating-stat-card card-top-left">
-              <div className="stat-card-icon emerald">
-                <Award size={18} />
+            {/* Floating / Responsive Stat Cards */}
+            <div className="hero-stat-cards-container">
+              {/* Card 1: Experience */}
+              <div className="floating-stat-card card-top-left">
+                <div className="stat-card-icon emerald">
+                  <Award size={18} />
+                </div>
+                <div className="stat-card-text">
+                  <span className="stat-card-number">{DOCTOR_INFO.experienceYears}+ Years</span>
+                  <span className="stat-card-label">Surgical Experience</span>
+                </div>
               </div>
-              <div className="stat-card-text">
-                <span className="stat-card-number">{DOCTOR_INFO.experienceYears}+ Years</span>
-                <span className="stat-card-label">Surgical Experience</span>
-              </div>
-            </div>
 
-            {/* Floating Card 2: Academic Role (Top Right negative space) */}
-            <div className="floating-stat-card card-top-right">
-              <div className="stat-card-icon teal">
-                <CheckCircle size={18} />
+              {/* Card 2: Academic Role */}
+              <div className="floating-stat-card card-top-right">
+                <div className="stat-card-icon teal">
+                  <CheckCircle size={18} />
+                </div>
+                <div className="stat-card-text">
+                  <span className="stat-card-number">Asst. Professor</span>
+                  <span className="stat-card-label">Ad-din Medical College</span>
+                </div>
               </div>
-              <div className="stat-card-text">
-                <span className="stat-card-number">Asst. Professor</span>
-                <span className="stat-card-label">Ad-din Medical College</span>
-              </div>
-            </div>
 
-            {/* Floating Card 3: Visiting Schedule (Bottom Right negative space) */}
-            <div className="floating-stat-card card-bottom-right">
-              <div className="stat-card-icon blue">
-                <Clock size={18} />
-              </div>
-              <div className="stat-card-text">
-                <span className="stat-card-number no-wrap">Every Thursday</span>
-                <span className="stat-card-label no-wrap">2:00 PM – 8:00 PM (Ashuganj)</span>
+              {/* Card 3: Visiting Schedule */}
+              <div className="floating-stat-card card-bottom-right">
+                <div className="stat-card-icon blue">
+                  <Clock size={18} />
+                </div>
+                <div className="stat-card-text">
+                  <span className="stat-card-number no-wrap">Every Thursday</span>
+                  <span className="stat-card-label no-wrap">2:00 PM – 8:00 PM (Ashuganj)</span>
+                </div>
               </div>
             </div>
           </div>

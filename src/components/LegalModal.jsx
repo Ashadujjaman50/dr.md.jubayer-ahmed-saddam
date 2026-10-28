@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, ShieldAlert, FileText, Lock } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import './Modal.css';
 
 export default function LegalModal({ type, onClose }) {
+  useEffect(() => {
+    if (!type) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [type, onClose]);
+
   if (!type) return null;
 
   const getContent = () => {
@@ -70,10 +81,16 @@ export default function LegalModal({ type, onClose }) {
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal-dialog legal-dialog" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-dialog legal-dialog"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="legal-modal-title"
+      >
         <div className="modal-header">
           <div className="modal-title-group">
-            <h3 className="modal-title">{data.title}</h3>
+            <h3 className="modal-title" id="legal-modal-title">{data.title}</h3>
           </div>
           <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Close modal">
             <X size={20} />

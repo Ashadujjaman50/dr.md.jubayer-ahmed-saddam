@@ -1,18 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, CheckCircle, Calendar, ShieldCheck, ArrowRight } from 'lucide-react';
 import './Modal.css';
 
 export default function ServiceDetailModal({ service, onClose, onOpenAppointment }) {
+  useEffect(() => {
+    if (!service) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [service, onClose]);
+
   if (!service) return null;
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal-dialog service-dialog" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-dialog service-dialog"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="service-modal-title"
+      >
         
         <div className="modal-header">
           <div className="modal-title-group">
             <span className="badge badge-primary">{service.banglaTitle}</span>
-            <h3 className="modal-title">{service.title}</h3>
+            <h3 className="modal-title" id="service-modal-title">{service.title}</h3>
           </div>
           <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Close modal">
             <X size={20} />

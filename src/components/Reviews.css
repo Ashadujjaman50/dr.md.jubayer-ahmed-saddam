@@ -1,15 +1,15 @@
 .reviews-section {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
   background-color: var(--color-gray-50);
 }
 
 .quote-spotlight {
   background: linear-gradient(135deg, #0F766E 0%, #115E59 100%);
   border-radius: var(--radius-xl);
-  padding: 3rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
   color: white;
-  margin-bottom: 3.5rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
   position: relative;
   box-shadow: var(--shadow-lg);
   text-align: center;
@@ -20,14 +20,14 @@
 
 .quote-icon {
   color: rgba(255, 255, 255, 0.25);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .quote-text {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 2vw + 0.3rem, 1.25rem);
   font-style: italic;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .quote-author-info {
@@ -50,16 +50,16 @@
 /* Reviews Grid */
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .review-card {
   background: white;
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-lg);
-  padding: 2rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-sm);
@@ -83,10 +83,10 @@
 }
 
 .review-comment {
-  font-size: 0.95rem;
+  font-size: clamp(0.875rem, 1vw + 0.2rem, 0.95rem);
   color: var(--color-dark-muted);
   line-height: 1.65;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
   font-style: italic;
 }
 
@@ -141,14 +141,26 @@
   background: white;
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-md);
-  padding: 1rem 1.5rem;
+  padding: 1rem clamp(1rem, 2vw, 1.5rem);
   font-size: 0.85rem;
   color: var(--color-gray-500);
   max-width: 900px;
   margin: 0 auto;
+  line-height: 1.5;
 }
 
 .transparency-icon {
   color: var(--color-primary);
   flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+  .transparency-note {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 }

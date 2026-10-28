@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Send, Phone, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import { submitContactMessage } from '../services/contactService';
@@ -16,6 +16,29 @@ export default function ContactModal({ isOpen, onClose }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [preparedNotice, setPreparedNotice] = useState(null);
+
+  const handleReset = () => {
+    setPreparedNotice(null);
+    setFormData({
+      name: '',
+      phone: '',
+      email: '',
+      subject: 'Consultation & Serial Inquiry',
+      message: ''
+    });
+    onClose();
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        handleReset();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -44,25 +67,19 @@ export default function ContactModal({ isOpen, onClose }) {
     }
   };
 
-  const handleReset = () => {
-    setPreparedNotice(null);
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      subject: 'Consultation & Serial Inquiry',
-      message: ''
-    });
-    onClose();
-  };
-
   return (
     <div className="modal-backdrop" onClick={handleReset}>
-      <div className="modal-dialog contact-dialog" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-dialog contact-dialog"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-modal-title"
+      >
         
         <div className="modal-header">
           <div className="modal-title-group">
-            <h3 className="modal-title">Chamber Inquiry & Message</h3>
+            <h3 className="modal-title" id="contact-modal-title">Chamber Inquiry & Message</h3>
             <span className="modal-subtitle">
               Send a question regarding consultation, procedures, or visiting schedule
             </span>

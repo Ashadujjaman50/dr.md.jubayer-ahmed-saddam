@@ -1,13 +1,13 @@
 .location-section {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
   background-color: var(--color-white);
 }
 
 .location-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
   align-items: stretch;
 }
 
@@ -15,7 +15,7 @@
   background: white;
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-xl);
-  padding: 2.5rem;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
@@ -26,14 +26,14 @@
 }
 
 .chamber-name {
-  font-size: 1.6rem;
+  font-size: clamp(1.3rem, 2.5vw + 0.3rem, 1.6rem);
   font-weight: 800;
   color: var(--color-dark);
   line-height: 1.25;
 }
 
 .chamber-bangla-name {
-  font-size: 1.15rem;
+  font-size: clamp(1rem, 2vw + 0.2rem, 1.15rem);
   font-weight: 700;
   color: var(--color-primary-dark);
   margin-bottom: 1.5rem;
@@ -138,14 +138,14 @@
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  min-height: 450px;
+  min-height: clamp(340px, 40vw, 450px);
 }
 
 .map-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
+  padding: 0.85rem 1.25rem;
   background: var(--color-gray-50);
   border-bottom: 1px solid var(--color-gray-200);
 }
@@ -172,7 +172,7 @@
 .map-frame-wrapper {
   flex: 1;
   width: 100%;
-  min-height: 380px;
+  min-height: clamp(260px, 35vw, 380px);
 }
 
 .map-footer-note {
@@ -194,5 +194,24 @@
 @media (max-width: 992px) {
   .location-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .chamber-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .chamber-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-item {
+    gap: 0.75rem;
+    padding: 0.75rem;
   }
 }
