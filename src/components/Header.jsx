@@ -83,9 +83,11 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
             type="button"
             className="btn btn-primary btn-sm header-book-btn"
             onClick={onOpenAppointment}
+            aria-label="Book Appointment"
+            title="Book Appointment"
           >
-            <Calendar size={15} />
-            <span>Book Appointment</span>
+            <Calendar size={16} />
+            <span className="header-book-text">Book Appointment</span>
           </button>
 
           {/* Mobile hamburger */}

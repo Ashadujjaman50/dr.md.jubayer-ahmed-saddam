@@ -91,17 +91,19 @@ export default function Hero({ onOpenAppointment, onOpenContact }) {
             <div className="stage-glow"></div>
             
             {/* Doctor Portrait (anchored to bottom) */}
-            <img 
-              src="/assets/doctor-transparent.png" 
-              alt={`Dr. Md. Jubayer Ahmed Saddam - ${DOCTOR_INFO.title}`}
-              className="doctor-cutout-img"
-              onError={(e) => {
-                // Fallback to regular photo if transparent cutout is missing
-                e.target.onerror = null;
-                e.target.src = '/assets/doctor.jpg';
-                e.target.classList.add('fallback-radius');
-              }}
-            />
+            <div className="doctor-cutout-container">
+              <img 
+                src="/assets/doctor-transparent.png" 
+                alt={`Dr. Md. Jubayer Ahmed Saddam - ${DOCTOR_INFO.title}`}
+                className="doctor-cutout-img"
+                onError={(e) => {
+                  // Fallback to regular photo if transparent cutout is missing
+                  e.target.onerror = null;
+                  e.target.src = '/assets/doctor.jpg';
+                  e.target.classList.add('fallback-radius');
+                }}
+              />
+            </div>
 
             {/* Floating / Responsive Stat Cards */}
             <div className="hero-stat-cards-container">
@@ -133,8 +135,10 @@ export default function Hero({ onOpenAppointment, onOpenContact }) {
                   <Clock size={18} />
                 </div>
                 <div className="stat-card-text">
-                  <span className="stat-card-number no-wrap">Every Thursday</span>
-                  <span className="stat-card-label no-wrap">2:00 PM – 8:00 PM (Ashuganj)</span>
+                  <span className="stat-card-number">Every Thursday</span>
+                  <span className="stat-card-label">
+                    2:00 PM – 8:00 PM <span className="stat-card-loc">(Ashuganj)</span>
+                  </span>
                 </div>
               </div>
             </div>
