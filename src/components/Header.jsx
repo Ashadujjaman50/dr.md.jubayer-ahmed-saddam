@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Calendar, Menu, X, ShieldCheck } from 'lucide-react';
+import { Phone, Calendar, Menu, X } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import './Header.css';
 
@@ -25,9 +25,8 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
           </div>
           <div className="brand-text">
             <span className="brand-name">{DOCTOR_INFO.name}</span>
-            <span className="brand-designation">
-              {DOCTOR_INFO.title} • {DOCTOR_INFO.degrees}
-            </span>
+            <span className="brand-designation">{DOCTOR_INFO.title}</span>
+            <span className="brand-degrees">{DOCTOR_INFO.degrees}</span>
           </div>
         </a>
 
@@ -36,10 +35,10 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
           <a href="#about" className="nav-link">About</a>
           <a href="#specialties" className="nav-link">Specialties</a>
           <a href="#affiliations" className="nav-link">Affiliations</a>
-          <a href="#schedule" className="nav-link">Schedule & Chamber</a>
-          <a href="#reviews" className="nav-link">Care Principles</a>
-          <button 
-            type="button" 
+          <a href="#schedule" className="nav-link">Chamber</a>
+          <a href="#reviews" className="nav-link">Consultation</a>
+          <button
+            type="button"
             className="nav-link nav-btn-link"
             onClick={onOpenContact}
           >
@@ -47,19 +46,10 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
           </button>
         </nav>
 
-        {/* Action Button: Chamber hotline + Appointment pill */}
+        {/* Action Button: Appointment CTA */}
         <div className="header-actions">
-          <a 
-            href={`tel:${DOCTOR_INFO.chamber.phone}`} 
-            className="header-phone-link"
-            title="Call New Green Life Hospital Serial Hotline"
-          >
-            <Phone size={16} className="phone-icon" />
-            <span className="phone-text">{DOCTOR_INFO.chamber.phone}</span>
-          </a>
-          
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="btn btn-primary btn-sm header-book-btn"
             onClick={onOpenAppointment}
           >
@@ -68,8 +58,8 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
           </button>
 
           {/* Mobile hamburger */}
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="mobile-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
@@ -86,11 +76,11 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
             <a href="#about" onClick={() => setMobileMenuOpen(false)}>About Dr. Saddam</a>
             <a href="#specialties" onClick={() => setMobileMenuOpen(false)}>Surgical Specialties</a>
             <a href="#affiliations" onClick={() => setMobileMenuOpen(false)}>Affiliations</a>
-            <a href="#schedule" onClick={() => setMobileMenuOpen(false)}>Chamber & Location</a>
-            <a href="#reviews" onClick={() => setMobileMenuOpen(false)}>Patient Reviews</a>
-            <button 
-              type="button" 
-              className="mobile-drawer-btn" 
+            <a href="#schedule" onClick={() => setMobileMenuOpen(false)}>Chamber</a>
+            <a href="#reviews" onClick={() => setMobileMenuOpen(false)}>Consultation</a>
+            <button
+              type="button"
+              className="mobile-drawer-btn"
               onClick={() => { setMobileMenuOpen(false); onOpenContact(); }}
             >
               Contact Inquiries
@@ -99,8 +89,8 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
               <a href={`tel:${DOCTOR_INFO.chamber.phone}`} className="mobile-phone-btn">
                 <Phone size={16} /> Serial: {DOCTOR_INFO.chamber.phone}
               </a>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="btn btn-primary mobile-appointment-btn"
                 onClick={() => { setMobileMenuOpen(false); onOpenAppointment(); }}
               >
