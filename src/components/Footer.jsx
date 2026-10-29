@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, MapPin, Clock, Calendar, Mail, ShieldAlert } from 'lucide-react';
+import { Phone, MapPin, Clock, Calendar } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import './Footer.css';
 
@@ -22,36 +22,10 @@ export default function Footer({ onOpenAppointment, onOpenContact, onOpenLegal }
             {DOCTOR_INFO.currentInstitution} <br />
             {DOCTOR_INFO.degrees}
           </p>
-          <div className="footer-chamber-badge">
-            <span className="chamber-badge-title">Ashuganj Visiting Chamber:</span>
-            <span>New Green Life Hospital (Every Thursday 2 PM – 8 PM)</span>
-          </div>
-        </div>
-
-        {/* Quick Links */}
-        <div className="footer-col">
-          <h4 className="footer-heading">Navigation</h4>
-          <ul className="footer-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About Dr. Saddam</a></li>
-            <li><a href="#specialties">Surgical Specialties</a></li>
-            <li><a href="#affiliations">Hospital Affiliations</a></li>
-            <li><a href="#schedule">Schedule & Chamber</a></li>
-            <li><a href="#reviews">Care Principles</a></li>
-            <li>
-              <button 
-                type="button" 
-                className="footer-btn-link"
-                onClick={onOpenContact}
-              >
-                Chamber Inquiries
-              </button>
-            </li>
-          </ul>
         </div>
 
         {/* Surgical Specialties */}
-        <div className="footer-col">
+        <div className="footer-col specialties-col">
           <h4 className="footer-heading">Surgical Specialties</h4>
           <ul className="footer-links">
             {DOCTOR_INFO.services.map((s) => (
@@ -60,15 +34,6 @@ export default function Footer({ onOpenAppointment, onOpenContact, onOpenLegal }
               </li>
             ))}
           </ul>
-          <div className="footer-cv-box">
-            <a 
-              href="/assets/cv.pdf" 
-              download="Dr-Md-Jubayer-Ahmed-Saddam-CV.pdf"
-              className="footer-cv-btn"
-            >
-              Academic CV (PDF)
-            </a>
-          </div>
         </div>
 
         {/* Chamber Serial & Helpline */}
