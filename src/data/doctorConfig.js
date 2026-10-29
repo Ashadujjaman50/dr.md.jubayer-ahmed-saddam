@@ -1,5 +1,5 @@
 export const DOCTOR_INFO = {
-  name: "Dr. Md. Jubayer Ahmed Saddam",
+  name: "Dr. Md. Jubayear Ahmed Saddam",
   banglaName: "ডাঃ মোঃ জুবায়ের আহমেদ সাদ্দাম",
   degrees: "MBBS, BCS (Health), FCPS (Surgery)",
   banglaDegrees: "এমবিবিএস, বিসিএস (স্বাস্থ্য), এফসিপিএস (সার্জারি)",
@@ -166,7 +166,7 @@ export const DOCTOR_INFO = {
   clinicalPrinciples: [
     {
       quote: "Every surgical decision must balance clinical necessity with patient comfort. Accurate preoperative assessment and clear patient communication remain the cornerstones of successful surgery.",
-      author: "Dr. Md. Jubayer Ahmed Saddam",
+      author: "Dr. Md. Jubayear Ahmed Saddam",
       designation: "Assistant Professor of Surgery"
     },
     {

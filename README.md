@@ -1,12 +1,12 @@
-# Dr. Md. Jubayer Ahmed Saddam — Surgical Specialist Portfolio
+# Dr. Md. Jubayear Ahmed Saddam — Surgical Specialist Portfolio
 
-A modern, high-performance, responsive React.js frontend portfolio website for **Dr. Md. Jubayer Ahmed Saddam** (MBBS, BCS Health, FCPS Surgery), Assistant Professor of Surgery at Ad-din Medical College & Hospital, Dhaka, and Visiting Specialist Surgeon at New Green Life Hospital, Ashuganj, Brahmanbaria.
+A modern, high-performance, responsive React.js frontend portfolio website for **Dr. Md. Jubayear Ahmed Saddam** (MBBS, BCS Health, FCPS Surgery), Assistant Professor of Surgery at Ad-din Medical College & Hospital, Dhaka, and Visiting Specialist Surgeon at New Green Life Hospital, Ashuganj, Brahmanbaria.
 
 ---
 
 ## 🩺 Overview & Clinical Focus
 
-- **Specialist Surgeon:** Dr. Md. Jubayer Ahmed Saddam (ডাঃ মোঃ জুবায়ের আহমেদ সাদ্দাম)
+- **Specialist Surgeon:** Dr. Md. Jubayear Ahmed Saddam (ডাঃ মোঃ জুবায়ের আহমেদ সাদ্দাম)
 - **Academic Designation:** Assistant Professor (Surgery), Ad-din Medical College & Hospital, Dhaka
 - **Specializations:** General Surgery, Laparoscopic (Keyhole) Surgery, Colorectal & Piles Surgery, Liver & Gallbladder Surgery
 - **Ashuganj Visiting Chamber:** New Green Life Hospital, Station Road, Ashuganj, Brahmanbaria
@@ -143,5 +143,5 @@ When configuring live email delivery in a future sprint:
 
 ## 📜 License & Medical Disclaimer
 
-All medical content, qualifications, and credentials belong to **Dr. Md. Jubayer Ahmed Saddam**.
+All medical content, qualifications, and credentials belong to **Dr. Md. Jubayear Ahmed Saddam**.
 Website created for professional healthcare communication and public awareness.

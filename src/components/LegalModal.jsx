@@ -63,7 +63,7 @@ export default function LegalModal({ type, onClose }) {
           content: (
             <>
               <p>
-                <strong>Visiting Day:</strong> Dr. Md. Jubayer Ahmed Saddam visits New Green Life Hospital, Ashuganj <strong>every Thursday from 2:00 PM to 8:00 PM</strong>.
+                <strong>Visiting Day:</strong> {DOCTOR_INFO.name} visits New Green Life Hospital, Ashuganj <strong>every Thursday from 2:00 PM to 8:00 PM</strong>.
               </p>
               <p>
                 <strong>Serial Booking:</strong> Appointment serials are allocated on a prioritized booking basis. Advance booking through the serial hotline (<strong>{DOCTOR_INFO.chamber.phone}</strong>) or online request preparation helps reduce waiting times.

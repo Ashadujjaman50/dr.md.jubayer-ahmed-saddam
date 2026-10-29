@@ -1,8 +1,8 @@
 {
-  "name": "dr-md-jubayer-ahmed-saddam-portfolio",
+  "name": "dr-md-jubayear-ahmed-saddam-portfolio",
   "private": true,
   "version": "1.0.0",
-  "description": "Professional Surgical Portfolio for Dr. Md. Jubayer Ahmed Saddam",
+  "description": "Professional Surgical Portfolio for Dr. Md. Jubayear Ahmed Saddam",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -34,7 +34,7 @@ export default function About({ onOpenAppointment }) {
         {/* Top Header */}
         <div className="section-header">
           <span className="section-tag">Academic & Clinical Profile</span>
-          <h2 className="section-title">About Dr. Md. Jubayer Ahmed Saddam</h2>
+          <h2 className="section-title">About {DOCTOR_INFO.name}</h2>
           <p className="section-subtitle">
             Dedicated General, Laparoscopic, Colorectal & Liver Surgeon combining academic rigor with patient-first compassion.
           </p>
@@ -59,7 +59,7 @@ export default function About({ onOpenAppointment }) {
             <div className="bio-actions">
               <a 
                 href="/assets/cv.pdf" 
-                download="Dr-Md-Jubayer-Ahmed-Saddam-CV.pdf"
+                download="Dr-Md-Jubayear-Ahmed-Saddam-CV.pdf"
                 className="btn btn-primary"
               >
                 <FileText size={17} />

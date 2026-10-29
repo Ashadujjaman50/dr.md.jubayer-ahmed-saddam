@@ -94,7 +94,7 @@ export default function Hero({ onOpenAppointment, onOpenContact }) {
             <div className="doctor-cutout-container">
               <img 
                 src="/assets/doctor-transparent.png" 
-                alt={`Dr. Md. Jubayer Ahmed Saddam - ${DOCTOR_INFO.title}`}
+                alt={`${DOCTOR_INFO.name} - ${DOCTOR_INFO.title}`}
                 className="doctor-cutout-img"
                 onError={(e) => {
                   // Fallback to regular photo if transparent cutout is missing
