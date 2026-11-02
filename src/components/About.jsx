@@ -8,7 +8,7 @@ export default function About({ onOpenAppointment }) {
     {
       icon: <GraduationCap size={22} className="why-icon" />,
       title: "Assistant Professor & Surgical Educator",
-      desc: "Actively training upcoming surgeons at Ad-din Medical College & Hospital with strong commitment to evidence-based medical sciences."
+      desc: "Actively training upcoming surgeons at Ad-Din Medical College Hospital with strong commitment to evidence-based medical sciences."
     },
     {
       icon: <ShieldCheck size={22} className="why-icon" />,
@@ -17,8 +17,8 @@ export default function About({ onOpenAppointment }) {
     },
     {
       icon: <HeartPulse size={22} className="why-icon" />,
-      title: "Minimally Invasive Precision",
-      desc: "Pioneering laparoscopic and keyhole surgeries that dramatically minimize blood loss, wound size, and recovery turnaround."
+      title: "Advanced Surgical Precision",
+      desc: "Specialized in General, Advanced Laparoscopic, Colorectal, Hepatobiliary, and Pancreatic surgical procedures."
     },
     {
       icon: <UserCheck size={22} className="why-icon" />,
@@ -36,7 +36,7 @@ export default function About({ onOpenAppointment }) {
           <span className="section-tag">Academic & Clinical Profile</span>
           <h2 className="section-title">About {DOCTOR_INFO.name}</h2>
           <p className="section-subtitle">
-            Dedicated General, Laparoscopic, Colorectal & Liver Surgeon combining academic rigor with patient-first compassion.
+            Dedicated General, Laparoscopic, Colorectal, Hepatobiliary & Pancreatic Surgeon combining academic rigor with patient-first compassion.
           </p>
         </div>
 
@@ -47,13 +47,13 @@ export default function About({ onOpenAppointment }) {
           <div className="about-bio-card">
             <h3 className="bio-title">Dedicated to Surgical Precision & Healing</h3>
             <p className="bio-paragraph">
-              <strong>{DOCTOR_INFO.name}</strong> ({DOCTOR_INFO.banglaName}) serves as an <strong>{DOCTOR_INFO.title}</strong> in the Department of Surgery at <strong>{DOCTOR_INFO.currentInstitution}</strong>. With rigorous residency training completed at <strong>{DOCTOR_INFO.formerInstitution}</strong> and prestigious fellowship certification from the <strong>Bangladesh College of Physicians and Surgeons (BCPS)</strong>, Dr. Saddam brings over a decade of clinical excellence to every patient interaction.
+              <strong>{DOCTOR_INFO.name}</strong> ({DOCTOR_INFO.banglaName}) serves as an <strong>{DOCTOR_INFO.title}</strong> at <strong>{DOCTOR_INFO.currentInstitution}</strong>. With foundational medical education and residency completed at <strong>{DOCTOR_INFO.formerInstitution}</strong> and prestigious fellowship certification from the <strong>Bangladesh College of Physicians and Surgeons (BCPS)</strong>, he brings over a decade of clinical excellence to every patient interaction.
             </p>
             <p className="bio-paragraph">
-              His clinical focus spans advanced laparoscopic procedures for gallbladder stones and abdominal hernias, modern colorectal surgery including painless stapled and laser procedures for piles, fissures, and fistulae, as well as complex liver and emergency surgical interventions.
+              His specialized practice encompasses General Surgery, Advanced Laparoscopic Surgery, Colorectal Surgery, Hepatobiliary Surgery, and Pancreatic Surgery, upholding strict evidence-based surgical safety protocols and comprehensive patient-first care.
             </p>
             <p className="bio-paragraph">
-              To bring apex tertiary surgical care closer to regional communities, Dr. Saddam visits <strong>{DOCTOR_INFO.chamber.hospitalName}</strong> in Ashuganj, Brahmanbaria <strong>every Thursday from 2:00 PM to 8:00 PM</strong>.
+              Dr. Saddam regularly consults patients across three dedicated chambers: <strong>Health and Hope Hospital</strong> (Panthapath, Dhaka), <strong>নিউ গ্রীণ লাইফ হাসপাতাল</strong> (Ashuganj), and <strong>ল্যাবএইড ডায়াগনস্টিক লিঃ</strong> (Brahmanbaria).
             </p>
 
             <div className="bio-actions">
@@ -71,7 +71,7 @@ export default function About({ onOpenAppointment }) {
                 onClick={onOpenAppointment}
               >
                 <Calendar size={17} />
-                <span>Consult on Thursday</span>
+                <span>Book Consultation</span>
               </button>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Calendar, Clock, Phone, AlertCircle, CheckCircle2, Hospital } from 'lucide-react';
+import { X, Calendar, Clock, Phone, AlertCircle, CheckCircle2, Hospital, MessageCircle } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import { submitAppointmentRequest } from '../services/appointmentService';
 import './Modal.css';
@@ -8,6 +8,7 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
   const [formData, setFormData] = useState({
     patientName: '',
     phone: '',
+    chamberId: 'ashuganj',
     appointmentDate: '',
     serviceId: initialServiceId || DOCTOR_INFO.services[0].id,
     age: '',
@@ -24,6 +25,7 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
     setFormData({
       patientName: '',
       phone: '',
+      chamberId: 'ashuganj',
       appointmentDate: '',
       serviceId: DOCTOR_INFO.services[0].id,
       age: '',
@@ -35,6 +37,9 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
 
   useEffect(() => {
     if (!isOpen) return;
+    if (initialServiceId) {
+      setFormData((prev) => ({ ...prev, serviceId: initialServiceId }));
+    }
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         handleReset();
@@ -42,33 +47,60 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, initialServiceId]);
 
   if (!isOpen) return null;
 
-  // Calculate upcoming Thursdays
-  const getUpcomingThursdays = () => {
+  // Calculate upcoming available dates for selected chamber with local timezone safety
+  const getUpcomingDates = (chamberId) => {
     const dates = [];
     const today = new Date();
-    for (let i = 0; i < 30; i++) {
+    for (let i = 1; i <= 35; i++) {
       const d = new Date(today);
       d.setDate(today.getDate() + i);
-      if (d.getDay() === 4) { // Thursday is day 4
+      const day = d.getDay();
+      let match = false;
+      if (chamberId === 'ashuganj') {
+        match = (day === 4); // Thursday
+      } else if (chamberId === 'brahmanbaria') {
+        match = (day === 5); // Friday
+      } else {
+        // Dhaka: daily except Thursday (4) & Friday (5)
+        match = (day !== 4 && day !== 5);
+      }
+
+      if (match) {
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const dayOfMonth = String(d.getDate()).padStart(2, '0');
+        const localIsoDate = `${year}-${month}-${dayOfMonth}`;
+
         dates.push({
-          value: d.toISOString().split('T')[0],
+          value: localIsoDate,
           label: d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
         });
-        if (dates.length >= 4) break;
+        if (dates.length >= 6) break;
       }
     }
     return dates;
   };
 
-  const upcomingThursdays = getUpcomingThursdays();
+  const currentChamber = DOCTOR_INFO.chambers.find(c => c.id === formData.chamberId) || DOCTOR_INFO.chambers[0];
+  const upcomingDates = getUpcomingDates(formData.chamberId);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrorMessage('');
+  };
+
+  const handleChamberChange = (e) => {
+    const chamberId = e.target.value;
+    setFormData((prev) => ({
+      ...prev,
+      chamberId,
+      appointmentDate: ''
+    }));
     setErrorMessage('');
   };
 
@@ -78,7 +110,10 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
     setErrorMessage('');
 
     try {
-      const result = await submitAppointmentRequest(formData);
+      const result = await submitAppointmentRequest({
+        ...formData,
+        chamberLocation: `${currentChamber.hospitalName}, ${currentChamber.city}`
+      });
       if (result.success) {
         setPreparedNotice(result);
       } else {
@@ -106,7 +141,7 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
           <div className="modal-title-group">
             <h3 className="modal-title" id="appointment-modal-title">Request Surgical Appointment</h3>
             <span className="modal-subtitle">
-              New Green Life Hospital, Ashuganj (Every Thursday 2:00 PM – 8:00 PM)
+              Chambers in Dhaka, Ashuganj &amp; Brahmanbaria
             </span>
           </div>
           <button type="button" className="modal-close-btn" onClick={handleReset} aria-label="Close modal">
@@ -137,7 +172,7 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
                 </div>
                 <div className="summary-row">
                   <span className="summary-label">Preferred Date:</span>
-                  <span className="summary-val">{preparedNotice.data.appointmentDate} (Thursday)</span>
+                  <span className="summary-val">{preparedNotice.data.appointmentDate}</span>
                 </div>
                 <div className="summary-row">
                   <span className="summary-label">Chamber:</span>
@@ -150,11 +185,19 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
                 <Hospital size={20} className="alert-icon" />
                 <div className="alert-text">
                   <strong>Need immediate serial confirmation?</strong>
-                  <p>Please call the hospital reception desk directly at:</p>
-                  <a href={`tel:${DOCTOR_INFO.chamber.phone}`} className="alert-phone-btn">
-                    <Phone size={16} />
-                    <span>Call {DOCTOR_INFO.chamber.phone}</span>
-                  </a>
+                  <p>Please call the chamber serial desk or message on WhatsApp:</p>
+                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.4rem' }}>
+                    {currentChamber.serialPhones.map((ph, idx) => (
+                      <a key={idx} href={`tel:${ph}`} className="alert-phone-btn">
+                        <Phone size={14} />
+                        <span>Call {ph}</span>
+                      </a>
+                    ))}
+                    <a href={DOCTOR_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="alert-phone-btn" style={{ background: '#059669' }}>
+                      <MessageCircle size={14} />
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -171,24 +214,42 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
                 </div>
               )}
 
+              {/* Chamber Selector */}
+              <div className="form-group">
+                <label htmlFor="appointmentChamber">Select Consultation Chamber <span className="req">*</span></label>
+                <select
+                  id="appointmentChamber"
+                  name="chamberId"
+                  value={formData.chamberId}
+                  onChange={handleChamberChange}
+                >
+                  {DOCTOR_INFO.chambers.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.city}: {c.hospitalName} ({c.scheduleDays} {c.scheduleHours})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Patient Name & Phone */}
               <div className="form-row two-col">
                 <div className="form-group">
-                  <label htmlFor="patientName">Patient Full Name <span className="req">*</span></label>
+                  <label htmlFor="patientName">Patient Name <span className="req">*</span></label>
                   <input
                     type="text"
                     id="patientName"
                     name="patientName"
                     required
-                    placeholder="e.g. Md. Kabir Hossain"
+                    placeholder="e.g. Mohammad Ali"
                     value={formData.patientName}
                     onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="phone">Contact Phone Number <span className="req">*</span></label>
+                  <label htmlFor="patientPhone">Contact Phone Number <span className="req">*</span></label>
                   <input
                     type="tel"
-                    id="phone"
+                    id="patientPhone"
                     name="phone"
                     required
                     placeholder="e.g. 01771-358595"
@@ -198,9 +259,10 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
                 </div>
               </div>
 
+              {/* Date & Service */}
               <div className="form-row two-col">
                 <div className="form-group">
-                  <label htmlFor="appointmentDate">Select Thursday Date <span className="req">*</span></label>
+                  <label htmlFor="appointmentDate">Preferred Date <span className="req">*</span></label>
                   <select
                     id="appointmentDate"
                     name="appointmentDate"
@@ -208,10 +270,10 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
                     value={formData.appointmentDate}
                     onChange={handleChange}
                   >
-                    <option value="">-- Choose Upcoming Thursday --</option>
-                    {upcomingThursdays.map((d) => (
-                      <option key={d.value} value={d.value}>
-                        {d.label} (2:00 PM - 8:00 PM)
+                    <option value="">-- Choose Available Date --</option>
+                    {upcomingDates.map((item) => (
+                      <option key={item.value} value={item.value}>
+                        {item.label}
                       </option>
                     ))}
                   </select>
@@ -222,37 +284,37 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
                   <select
                     id="serviceId"
                     name="serviceId"
-                    required
                     value={formData.serviceId}
                     onChange={handleChange}
                   >
-                    {DOCTOR_INFO.services.map((s) => (
-                      <option key={s.id} value={s.id}>
-                        {s.title}
+                    {DOCTOR_INFO.services.map((svc) => (
+                      <option key={svc.id} value={svc.id}>
+                        {svc.title}
                       </option>
                     ))}
                   </select>
                 </div>
               </div>
 
+              {/* Age & Gender */}
               <div className="form-row two-col">
                 <div className="form-group">
-                  <label htmlFor="age">Patient Age</label>
+                  <label htmlFor="patientAge">Patient Age</label>
                   <input
                     type="number"
-                    id="age"
+                    id="patientAge"
                     name="age"
                     min="1"
-                    max="115"
-                    placeholder="e.g. 45"
+                    max="110"
+                    placeholder="e.g. 42"
                     value={formData.age}
                     onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="gender">Gender</label>
+                  <label htmlFor="patientGender">Gender</label>
                   <select
-                    id="gender"
+                    id="patientGender"
                     name="gender"
                     value={formData.gender}
                     onChange={handleChange}
@@ -264,18 +326,26 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
                 </div>
               </div>
 
+              {/* Clinical Notes / Symptoms */}
               <div className="form-group">
-                <label htmlFor="notes">Brief Problem Summary / Surgical Symptoms</label>
+                <label htmlFor="appointmentNotes">Medical Concern / Symptoms (Optional)</label>
                 <textarea
-                  id="notes"
+                  id="appointmentNotes"
                   name="notes"
                   rows="3"
-                  placeholder="e.g. Gallbladder stone detected on USG / Piles problem for 6 months..."
+                  placeholder="Briefly describe your symptoms (e.g., Gallbladder pain, Piles, Hernia, Previous reports)"
                   value={formData.notes}
                   onChange={handleChange}
                 ></textarea>
               </div>
 
+              {/* Notice */}
+              <div className="form-notice">
+                <Clock size={14} className="notice-icon" />
+                <span>Serial confirmation is provided upon clinical coordination. In urgent cases, call the chamber hotline directly.</span>
+              </div>
+
+              {/* Submit Buttons */}
               <div className="modal-actions">
                 <button
                   type="button"
@@ -290,7 +360,8 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
                   className="btn btn-primary"
                   disabled={loading}
                 >
-                  {loading ? 'Preparing Request...' : 'Prepare Request'}
+                  <Calendar size={16} />
+                  <span>{loading ? 'Preparing Request...' : 'Prepare Request'}</span>
                 </button>
               </div>
             </form>

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { X, CheckCircle, Calendar, ShieldCheck, ArrowRight } from 'lucide-react';
+import { X, CheckCircle, Calendar } from 'lucide-react';
+import { DOCTOR_INFO } from '../data/doctorConfig';
 import './Modal.css';
 
 export default function ServiceDetailModal({ service, onClose, onOpenAppointment }) {
@@ -56,8 +57,8 @@ export default function ServiceDetailModal({ service, onClose, onOpenAppointment
 
           <div className="service-consultation-banner">
             <div className="consult-banner-text">
-              <h5>Consult Dr. Saddam on Thursday</h5>
-              <p>Visiting hours: 2:00 PM – 8:00 PM at New Green Life Hospital, Ashuganj.</p>
+              <h5>Consult Dr. Saddam</h5>
+              <p>Chamber consultations available in Dhaka, Ashuganj &amp; Brahmanbaria.</p>
             </div>
             <button
               type="button"

@@ -1,18 +1,21 @@
 # Dr. Md. Jubayear Ahmed Saddam — Surgical Specialist Portfolio
 
-A modern, high-performance, responsive React.js frontend portfolio website for **Dr. Md. Jubayear Ahmed Saddam** (MBBS, BCS Health, FCPS Surgery), Assistant Professor of Surgery at Ad-din Medical College & Hospital, Dhaka, and Visiting Specialist Surgeon at New Green Life Hospital, Ashuganj, Brahmanbaria.
+A modern, high-performance, responsive React.js frontend portfolio website for **Dr. Md. Jubayear Ahmed Saddam** (MBBS (DMC), FCPS Surgery), Assistant Professor of Surgery at Ad-Din Medical College Hospital, Dhaka.
 
 ---
 
 ## 🩺 Overview & Clinical Focus
 
 - **Specialist Surgeon:** Dr. Md. Jubayear Ahmed Saddam (ডাঃ মোঃ জুবায়ের আহমেদ সাদ্দাম)
-- **Academic Designation:** Assistant Professor (Surgery), Ad-din Medical College & Hospital, Dhaka
-- **Specializations:** General Surgery, Laparoscopic (Keyhole) Surgery, Colorectal & Piles Surgery, Liver & Gallbladder Surgery
-- **Ashuganj Visiting Chamber:** New Green Life Hospital, Station Road, Ashuganj, Brahmanbaria
-- **Visiting Schedule:** Every Thursday, 2:00 PM – 8:00 PM
-- **Serial & Emergency Helpline:** `01771-358595` (+8801771-358595)
-- **Hospital Location Coordinates:** `24.0424943, 91.0089444`
+- **Academic Designation:** Assistant Professor, Ad-Din Medical College Hospital, Moghbazar, Dhaka
+- **Medical Institution:** Dhaka Medical College Hospital
+- **Qualifications:** MBBS (DMC), FCPS (Surgery)
+- **Specializations:** General Surgery, Advanced Laparoscopic Surgery, Colorectal Surgery, Hepatobiliary Surgery, Pancreatic Surgery
+- **Doctor's WhatsApp:** `01677-566535` (+8801677566535)
+- **Consultation Chambers:**
+  1. **Dhaka:** Health and Hope Hospital (Room No-402, 152/2/G, Green Road, Panthapath, Dhaka) | Serial: 01841-822442 | Every Day: 3:00 PM – 8:00 PM (Closed: Thursday & Friday)
+  2. **Ashuganj:** নিউ গ্রীণ লাইফ হাসপাতাল (পূর্ব বাজার, বড় মসজিদ রোড, আশুগঞ্জ) | Serial: 01771-358595, 01308-229576 | Every Thursday: 3:00 PM – 8:00 PM
+  3. **Brahmanbaria:** ল্যাবএইড ডায়াগনস্টিক লিঃ (কুমারশীল মোড়, মেইন রোড, পাইকপাড়া, ব্রাহ্মণবাড়িয়া) | Serial: 01766-662233 | Every Friday: 9:00 AM – 2:00 PM
 
 ---
 

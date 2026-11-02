@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, ShieldAlert, FileText, Lock } from 'lucide-react';
+import { X, ShieldAlert, Lock, FileText } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import './Modal.css';
 
@@ -47,7 +47,7 @@ export default function LegalModal({ type, onClose }) {
                 We respect your personal and health privacy. Any information submitted through our website appointment request and inquiry preparation forms (including your name, phone number, and health concerns) is kept strictly confidential.
               </p>
               <p>
-                Your contact details are used solely to assist with chamber appointment coordination, serial scheduling at New Green Life Hospital, and responding to your direct inquiries.
+                Your contact details are used solely to assist with chamber appointment coordination, serial scheduling across our verified chambers, and responding to your direct inquiries.
               </p>
               <p>
                 We do not sell, rent, or share personal contact information with third-party advertising or commercial marketing entities.
@@ -63,10 +63,10 @@ export default function LegalModal({ type, onClose }) {
           content: (
             <>
               <p>
-                <strong>Visiting Day:</strong> {DOCTOR_INFO.name} visits New Green Life Hospital, Ashuganj <strong>every Thursday from 2:00 PM to 8:00 PM</strong>.
+                <strong>Visiting Chambers:</strong> {DOCTOR_INFO.name} conducts consultations across three chambers: Dhaka (Health and Hope Hospital: Daily 3:00 PM – 8:00 PM, closed Thu &amp; Fri), Ashuganj (নিউ গ্রীণ লাইফ হাসপাতাল: Every Thursday 3:00 PM – 8:00 PM), and Brahmanbaria (ল্যাবএইড ডায়াগনস্টিক লিঃ: Every Friday 9:00 AM – 2:00 PM).
               </p>
               <p>
-                <strong>Serial Booking:</strong> Appointment serials are allocated on a prioritized booking basis. Advance booking through the serial hotline (<strong>{DOCTOR_INFO.chamber.phone}</strong>) or online request preparation helps reduce waiting times.
+                <strong>Serial Booking:</strong> Appointment serials are allocated on a prioritized booking basis. Advance booking through the chamber serial hotlines or WhatsApp helps reduce waiting times.
               </p>
               <p>
                 <strong>Medical Records:</strong> Patients are kindly requested to bring all previous investigation reports, imaging films/CDs (Ultrasound, CT scan, Endoscopy), prescriptions, and medical records to their consultation.
@@ -81,7 +81,7 @@ export default function LegalModal({ type, onClose }) {
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
-      <div
+      <div 
         className="modal-dialog legal-dialog"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
@@ -96,13 +96,20 @@ export default function LegalModal({ type, onClose }) {
             <X size={20} />
           </button>
         </div>
+
         <div className="modal-body legal-body">
-          {data.content}
-          <div className="modal-actions">
-            <button type="button" className="btn btn-primary" onClick={onClose}>
-              Understood
-            </button>
+          <div className="legal-icon-wrap">
+            {data.icon}
           </div>
+          <div className="legal-text-content">
+            {data.content}
+          </div>
+        </div>
+
+        <div className="modal-footer">
+          <button type="button" className="btn btn-secondary" onClick={onClose}>
+            Close
+          </button>
         </div>
       </div>
     </div>

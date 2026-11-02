@@ -3,8 +3,15 @@ import { Phone, MapPin, Clock, Calendar } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import './Footer.css';
 
-export default function Footer({ onOpenAppointment, onOpenContact, onOpenLegal }) {
+export default function Footer({ onOpenAppointment, onOpenContact, onOpenLegal, currentRoute = '/', onNavigate }) {
   const currentYear = new Date().getFullYear();
+
+  const handleLinkClick = (e, anchor) => {
+    if (onNavigate && currentRoute !== '/') {
+      e.preventDefault();
+      onNavigate('/', anchor);
+    }
+  };
 
   return (
     <footer className="site-footer">
@@ -12,8 +19,23 @@ export default function Footer({ onOpenAppointment, onOpenContact, onOpenLegal }
         
         {/* Brand & Doctor Info */}
         <div className="footer-col brand-col">
-          <div className="footer-brand">
-            <div className="footer-badge">DS</div>
+          <div 
+            className="footer-brand"
+            style={{ cursor: 'pointer' }}
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/');
+              }
+            }}
+          >
+            <div className="footer-badge">
+              <img 
+                src="/assets/logo.png" 
+                alt="Dr. Md. Jubayear Ahmed Saddam Logo" 
+                className="footer-logo-img" 
+              />
+            </div>
             <span className="footer-title">{DOCTOR_INFO.name}</span>
           </div>
           <p className="footer-bangla-name bangla-text">{DOCTOR_INFO.banglaName}</p>
@@ -30,7 +52,7 @@ export default function Footer({ onOpenAppointment, onOpenContact, onOpenLegal }
           <ul className="footer-links">
             {DOCTOR_INFO.services.map((s) => (
               <li key={s.id}>
-                <a href="#specialties">{s.title}</a>
+                <a href="#specialties" onClick={(e) => handleLinkClick(e, '#specialties')}>{s.title}</a>
               </li>
             ))}
           </ul>
@@ -42,16 +64,20 @@ export default function Footer({ onOpenAppointment, onOpenContact, onOpenLegal }
           <div className="footer-contact-items">
             <div className="f-item">
               <MapPin size={16} className="f-icon" />
-              <span>{DOCTOR_INFO.chamber.address}</span>
+              <span><strong>Dhaka:</strong> Health and Hope Hospital (<a href="tel:01841822442" className="f-phone">01841-822442</a>)</span>
             </div>
             <div className="f-item">
-              <Clock size={16} className="f-icon" />
-              <span>{DOCTOR_INFO.chamber.scheduleDays}, {DOCTOR_INFO.chamber.scheduleHours}</span>
+              <MapPin size={16} className="f-icon" />
+              <span><strong>Ashuganj:</strong> নিউ গ্রীণ লাইফ হাসপাতাল (<a href="tel:01771358595" className="f-phone">01771-358595</a>)</span>
+            </div>
+            <div className="f-item">
+              <MapPin size={16} className="f-icon" />
+              <span><strong>Brahmanbaria:</strong> ল্যাবএইড ডায়াগনস্টিক (<a href="tel:01766662233" className="f-phone">01766-662233</a>)</span>
             </div>
             <div className="f-item">
               <Phone size={16} className="f-icon" />
-              <a href={`tel:${DOCTOR_INFO.chamber.phone}`} className="f-phone">
-                Serial: {DOCTOR_INFO.chamber.phone}
+              <a href={DOCTOR_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="f-phone">
+                WhatsApp: {DOCTOR_INFO.whatsapp}
               </a>
             </div>
           </div>

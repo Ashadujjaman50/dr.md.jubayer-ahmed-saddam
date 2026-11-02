@@ -1,5 +1,9 @@
 /* Modal Backdrop & Dialog System */
 
+body.modal-open {
+  overflow: hidden;
+}
+
 .modal-backdrop {
   position: fixed;
   top: 0;

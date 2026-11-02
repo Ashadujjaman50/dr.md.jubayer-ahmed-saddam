@@ -29,10 +29,10 @@ export default function Hero({ onOpenAppointment, onOpenContact }) {
           </h1>
 
           <p className="hero-designation">
-            <strong>{DOCTOR_INFO.title}</strong>, Dept. of Surgery <br />
+            <strong>{DOCTOR_INFO.title}</strong>, Department of Surgery <br />
             <span className="hero-institution">{DOCTOR_INFO.currentInstitution}</span>
             <br />
-            <span className="hero-former">{DOCTOR_INFO.formerInstitution}</span>
+            <span className="hero-former">Medical Institution: {DOCTOR_INFO.formerInstitution}</span>
           </p>
 
           <div className="hero-specialties-box">
@@ -54,10 +54,10 @@ export default function Hero({ onOpenAppointment, onOpenContact }) {
             </div>
             <div className="schedule-banner-text">
               <span className="schedule-days-title">
-                {DOCTOR_INFO.chamber.banglaHospitalName} (আশুগঞ্জ চেম্বার):
+                Chamber Consultations:
               </span>
               <span className="schedule-hours-pill">
-                {DOCTOR_INFO.chamber.scheduleDays} • {DOCTOR_INFO.chamber.scheduleHours}
+                Dhaka • Ashuganj (Thu) • Brahmanbaria (Fri)
               </span>
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function Hero({ onOpenAppointment, onOpenContact }) {
                 </div>
                 <div className="stat-card-text">
                   <span className="stat-card-number">Asst. Professor</span>
-                  <span className="stat-card-label">Ad-din Medical College</span>
+                  <span className="stat-card-label">Ad-Din Medical College</span>
                 </div>
               </div>
 
@@ -135,9 +135,9 @@ export default function Hero({ onOpenAppointment, onOpenContact }) {
                   <Clock size={18} />
                 </div>
                 <div className="stat-card-text">
-                  <span className="stat-card-number">Every Thursday</span>
+                  <span className="stat-card-number">3 Chambers</span>
                   <span className="stat-card-label">
-                    2:00 PM – 8:00 PM <span className="stat-card-loc">(Ashuganj)</span>
+                    Dhaka • Ashuganj • B.Baria
                   </span>
                 </div>
               </div>

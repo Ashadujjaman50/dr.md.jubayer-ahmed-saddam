@@ -21,7 +21,7 @@ export default function Services({ onSelectService, onOpenAppointment }) {
           <span className="section-tag">Clinical Expertise</span>
           <h2 className="section-title">Specialized Surgical Care</h2>
           <p className="section-subtitle">
-            Advanced operative procedures utilizing minimally invasive laparoscopic technology, precision colorectal management, and evidence-based surgical safety protocols.
+            Comprehensive surgical care in General, Advanced Laparoscopic, Colorectal, Hepatobiliary and Pancreatic Surgery.
           </p>
         </div>
 
@@ -41,7 +41,7 @@ export default function Services({ onSelectService, onOpenAppointment }) {
               <p className="service-desc">{service.shortDesc}</p>
 
               <div className="service-procedures-list">
-                {service.procedures.slice(0, 3).map((item, i) => (
+                {(service.cardProcedures || service.procedures).map((item, i) => (
                   <div key={i} className="procedure-item">
                     <Check size={14} className="procedure-check" />
                     <span>{item}</span>
@@ -71,18 +71,18 @@ export default function Services({ onSelectService, onOpenAppointment }) {
           ))}
         </div>
 
-        {/* Ashuganj Surgical Consultation Callout */}
+        {/* Surgical Consultation Callout */}
         <div className="ashuganj-service-banner">
           <div className="banner-text">
-            <h4>Visiting Thursday at New Green Life Hospital, Ashuganj</h4>
-            <p>Patients requiring surgical assessment for Gallstones, Hernia, Piles, or Abdominal Pain can consult directly.</p>
+            <h4>Specialist Surgical Consultation</h4>
+            <p>Regular surgical consultations available in Dhaka (Health and Hope Hospital), Ashuganj (নিউ গ্রীণ লাইফ হাসপাতাল), and Brahmanbaria (ল্যাবএইড ডায়াগনস্টিক লিঃ).</p>
           </div>
           <button 
             type="button" 
             className="btn btn-primary"
             onClick={() => onOpenAppointment()}
           >
-            Schedule Thursday Appointment
+            Schedule Consultation
           </button>
         </div>
       </div>

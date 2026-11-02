@@ -5,22 +5,50 @@
  * Note: No private API keys or SMTP secrets should ever be placed in client-side code.
  */
 
+// Normalize Bengali digits (০-৯) to standard Arabic digits (0-9)
+export const normalizeBengaliDigits = (str) => {
+  if (!str) return '';
+  const bnToEn = { '০': '0', '১': '1', '২': '2', '৩': '3', '৪': '4', '৫': '5', '৬': '6', '৭': '7', '৮': '8', '৯': '9' };
+  return String(str).replace(/[০-৯]/g, (d) => bnToEn[d] || d);
+};
+
+// Sanitize string to prevent basic injection / malformed input
+export const sanitizeInput = (str, maxLength = 250) => {
+  if (!str) return '';
+  return String(str)
+    .replace(/[<>]/g, '') // remove HTML tag brackets
+    .trim()
+    .slice(0, maxLength);
+};
+
 export const submitAppointmentRequest = async (formData) => {
-  // Validate required fields
   const errors = [];
-  if (!formData.patientName || !formData.patientName.trim()) {
+
+  const rawName = sanitizeInput(formData.patientName, 100);
+  const rawPhone = normalizeBengaliDigits(formData.phone || '').trim();
+  const rawAge = formData.age ? parseInt(normalizeBengaliDigits(String(formData.age)), 10) : null;
+  const rawNotes = sanitizeInput(formData.notes, 1000);
+
+  if (!rawName) {
     errors.push('Patient name is required.');
   }
-  if (!formData.phone || !formData.phone.trim()) {
+
+  if (!rawPhone) {
     errors.push('Contact phone number is required.');
-  } else if (!/^[0-9+-\s]{8,15}$/.test(formData.phone.trim())) {
+  } else if (!/^[0-9+-\s()]{8,18}$/.test(rawPhone)) {
     errors.push('Please enter a valid phone number (e.g., 01771-358595).');
   }
+
   if (!formData.appointmentDate) {
-    errors.push('Please select a preferred Thursday appointment date.');
+    errors.push('Please select a preferred appointment date.');
   }
+
   if (!formData.serviceId) {
     errors.push('Please select a surgical specialty or reason for consultation.');
+  }
+
+  if (rawAge !== null && (isNaN(rawAge) || rawAge < 1 || rawAge > 120)) {
+    errors.push('Please enter a valid age between 1 and 120.');
   }
 
   if (errors.length > 0) {
@@ -32,29 +60,20 @@ export const submitAppointmentRequest = async (formData) => {
   }
 
   // Simulate network dispatch delay for professional UX feedback
-  await new Promise((resolve) => setTimeout(resolve, 800));
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
   // Prepared data payload ready for future email provider integration
   const preparedPayload = {
-    patientName: formData.patientName.trim(),
-    phone: formData.phone.trim(),
-    appointmentDate: formData.appointmentDate,
-    serviceId: formData.serviceId,
-    age: formData.age ? Number(formData.age) : null,
-    gender: formData.gender || 'Not specified',
-    notes: (formData.notes || '').trim(),
+    patientName: rawName,
+    phone: rawPhone,
+    appointmentDate: sanitizeInput(formData.appointmentDate, 20),
+    serviceId: sanitizeInput(formData.serviceId, 50),
+    age: rawAge,
+    gender: sanitizeInput(formData.gender || 'Male', 20),
+    notes: rawNotes,
     preparedAt: new Date().toISOString(),
-    chamberLocation: 'New Green Life Hospital, Ashuganj'
+    chamberLocation: sanitizeInput(formData.chamberLocation || 'Specialist Consultation Chamber', 100)
   };
-
-  /**
-   * FUTURE EMAIL INTEGRATION HOOK:
-   * When integrating with an email service:
-   * Option A (Serverless/API):
-   *   const res = await fetch('/api/send-appointment-email', { method: 'POST', body: JSON.stringify(preparedPayload) });
-   * Option B (EmailJS with safe public key):
-   *   await emailjs.send(SERVICE_ID, TEMPLATE_ID, preparedPayload, PUBLIC_KEY);
-   */
 
   return {
     success: true,

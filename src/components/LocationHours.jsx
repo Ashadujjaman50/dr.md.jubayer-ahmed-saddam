@@ -1,21 +1,40 @@
-import React from 'react';
-import { MapPin, Clock, Phone, Calendar, ExternalLink, Navigation } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Clock, Phone, Calendar, ExternalLink, Navigation, MessageCircle } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import './LocationHours.css';
 
 export default function LocationHours({ onOpenAppointment }) {
-  const { chamber } = DOCTOR_INFO;
+  const [activeTab, setActiveTab] = useState(0);
+  const chamber = DOCTOR_INFO.chambers[activeTab] || DOCTOR_INFO.chambers[0];
 
   return (
     <section className="location-section" id="schedule">
       <div className="container">
         
         <div className="section-header">
-          <span className="section-tag">Ashuganj Specialist Chamber</span>
-          <h2 className="section-title">Chamber Schedule & Location</h2>
+          <span className="section-tag">Consultation Chambers</span>
+          <h2 className="section-title">Chamber Schedule & Locations</h2>
           <p className="section-subtitle">
-            Regular specialist surgical outpatient consultation and clinical evaluation at New Green Life Hospital, Ashuganj.
+            Regular specialist surgical outpatient consultation and clinical evaluation across Dhaka, Ashuganj, and Brahmanbaria.
           </p>
+        </div>
+
+        {/* Chamber Selection Tabs */}
+        <div className="chamber-tabs-nav" role="tablist" aria-label="Chamber Locations">
+          {DOCTOR_INFO.chambers.map((c, idx) => (
+            <button
+              key={c.id}
+              type="button"
+              role="tab"
+              aria-selected={activeTab === idx}
+              className={`chamber-tab-pill ${activeTab === idx ? 'active' : ''}`}
+              onClick={() => setActiveTab(idx)}
+            >
+              <span className="tab-pill-city">{c.city} Chamber</span>
+              <span className="tab-pill-name">{c.hospitalName}</span>
+              <span className="tab-pill-time">{c.scheduleDays}</span>
+            </button>
+          ))}
         </div>
 
         <div className="location-grid">
@@ -23,7 +42,7 @@ export default function LocationHours({ onOpenAppointment }) {
           {/* Left: Schedule & Chamber Details */}
           <div className="chamber-details-card">
             <div className="chamber-header-badge">
-              <span className="badge badge-primary">Weekly Visiting Schedule</span>
+              <span className="badge badge-primary">{chamber.city} Specialist Chamber</span>
             </div>
 
             <h3 className="chamber-name">{chamber.hospitalName}</h3>
@@ -38,9 +57,13 @@ export default function LocationHours({ onOpenAppointment }) {
                 </div>
                 <div className="info-text">
                   <span className="info-label">Consultation Schedule:</span>
-                  <span className="info-val">{chamber.scheduleDays}</span>
-                  <span className="info-time">{chamber.scheduleHours}</span>
-                  <span className="info-bangla bangla-text">({chamber.banglaScheduleDays}, {chamber.banglaScheduleHours})</span>
+                  <span className="info-val">{chamber.scheduleDays}: {chamber.scheduleHours}</span>
+                  <span className="info-bangla bangla-text">({chamber.banglaScheduleDays}: {chamber.banglaScheduleHours})</span>
+                  {chamber.closedDays && (
+                    <span className="closed-days-pill">
+                      Weekly Closed: {chamber.closedDays} ({chamber.banglaClosedDays})
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -63,10 +86,26 @@ export default function LocationHours({ onOpenAppointment }) {
                 </div>
                 <div className="info-text">
                   <span className="info-label">Serial & Inquiry Hotline:</span>
-                  <a href={`tel:${chamber.phone}`} className="phone-hotline-link">
-                    {chamber.phone}
-                  </a>
+                  <div className="hotline-links-group">
+                    {chamber.serialPhones.map((ph, idx) => (
+                      <a key={idx} href={`tel:${ph}`} className="phone-hotline-link">
+                        {ph}
+                      </a>
+                    ))}
+                  </div>
                   <span className="info-sub">Advance appointment serial booking recommended</span>
+                  
+                  {/* WhatsApp Support Link */}
+                  <a
+                    href={DOCTOR_INFO.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="whatsapp-chamber-link"
+                    title="Direct WhatsApp Consultation"
+                  >
+                    <MessageCircle size={15} />
+                    <span>WhatsApp</span>
+                  </a>
                 </div>
               </div>
 
@@ -99,7 +138,7 @@ export default function LocationHours({ onOpenAppointment }) {
           {/* Right: Embedded Interactive Map */}
           <div className="map-container-box">
             <div className="map-header">
-              <span className="map-title">Hospital Location on Google Maps</span>
+              <span className="map-title">{chamber.hospitalName} Location</span>
               <a 
                 href={chamber.googleMapsUrl} 
                 target="_blank" 
@@ -113,8 +152,9 @@ export default function LocationHours({ onOpenAppointment }) {
 
             <div className="map-frame-wrapper">
               <iframe
-                title="New Green Life Hospital Location Map"
-                src={`https://maps.google.com/maps?q=${chamber.coordinates.lat},${chamber.coordinates.lng}&hl=en&z=17&output=embed`}
+                key={chamber.id}
+                title={`${chamber.hospitalName} Location Map`}
+                src={`https://maps.google.com/maps?q=${chamber.coordinates.lat},${chamber.coordinates.lng}&hl=en&z=16&output=embed`}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -126,7 +166,7 @@ export default function LocationHours({ onOpenAppointment }) {
 
             <div className="map-footer-note">
               <MapPin size={14} className="map-pin-icon" />
-              <span>Coordinates: {chamber.coordinates.lat}, {chamber.coordinates.lng} (Station Road, Ashuganj)</span>
+              <span>{chamber.address}</span>
             </div>
           </div>
 

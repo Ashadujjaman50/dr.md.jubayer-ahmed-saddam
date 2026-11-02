@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Calendar, Menu, X } from 'lucide-react';
+import { Calendar, Menu, X } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import './Header.css';
 
-export default function Header({ onOpenAppointment, onOpenContact }) {
+export default function Header({ onOpenAppointment, onOpenContact, currentRoute = '/', onNavigate }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -46,13 +46,42 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
 
   const closeMenu = () => setMobileMenuOpen(false);
 
+  const handleNavClick = (e, anchor) => {
+    if (onNavigate && currentRoute !== '/') {
+      e.preventDefault();
+      onNavigate('/', anchor);
+    }
+  };
+
+  const handleMobileNavClick = (e, anchor) => {
+    closeMenu();
+    if (onNavigate && currentRoute !== '/') {
+      e.preventDefault();
+      onNavigate('/', anchor);
+    }
+  };
+
   return (
     <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
       <div className="container header-container">
         {/* Brand / Doctor Title */}
-        <a href="#" className="brand-logo" aria-label="Home">
+        <a 
+          href="/" 
+          className="brand-logo" 
+          aria-label="Home"
+          onClick={(e) => {
+            if (onNavigate) {
+              e.preventDefault();
+              onNavigate('/');
+            }
+          }}
+        >
           <div className="brand-badge">
-            <span className="brand-initials">DS</span>
+            <img 
+              src="/assets/logo.png" 
+              alt="Dr. Md. Jubayear Ahmed Saddam Logo" 
+              className="brand-logo-img" 
+            />
           </div>
           <div className="brand-text">
             <span className="brand-name">{DOCTOR_INFO.name}</span>
@@ -63,11 +92,23 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
 
         {/* Desktop Navigation Links */}
         <nav className="desktop-nav" aria-label="Main Navigation">
-          <a href="#about" className="nav-link">About</a>
-          <a href="#specialties" className="nav-link">Specialties</a>
-          <a href="#affiliations" className="nav-link">Affiliations</a>
-          <a href="#schedule" className="nav-link">Chamber</a>
-          <a href="#reviews" className="nav-link">Consultation</a>
+          <a href="#about" className="nav-link" onClick={(e) => handleNavClick(e, '#about')}>About</a>
+          <a href="#specialties" className="nav-link" onClick={(e) => handleNavClick(e, '#specialties')}>Specialties</a>
+          <a href="#affiliations" className="nav-link" onClick={(e) => handleNavClick(e, '#affiliations')}>Affiliations</a>
+          <a href="#schedule" className="nav-link" onClick={(e) => handleNavClick(e, '#schedule')}>Chamber</a>
+          <a 
+            href="/gallery" 
+            className={`nav-link ${currentRoute === '/gallery' ? 'active' : ''}`}
+            onClick={(e) => {
+              if (onNavigate) {
+                e.preventDefault();
+                onNavigate('/gallery');
+              }
+            }}
+          >
+            Gallery
+          </a>
+          <a href="#reviews" className="nav-link" onClick={(e) => handleNavClick(e, '#reviews')}>Consultation</a>
           <button
             type="button"
             className="nav-link nav-btn-link"
@@ -120,11 +161,24 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
             aria-label="Site Navigation"
           >
             <nav className="mobile-nav" aria-label="Mobile Navigation">
-              <a href="#about" onClick={closeMenu}>About Dr. Saddam</a>
-              <a href="#specialties" onClick={closeMenu}>Surgical Specialties</a>
-              <a href="#affiliations" onClick={closeMenu}>Affiliations</a>
-              <a href="#schedule" onClick={closeMenu}>Chamber</a>
-              <a href="#reviews" onClick={closeMenu}>Consultation</a>
+              <a href="#about" onClick={(e) => handleMobileNavClick(e, '#about')}>About Dr. Saddam</a>
+              <a href="#specialties" onClick={(e) => handleMobileNavClick(e, '#specialties')}>Surgical Specialties</a>
+              <a href="#affiliations" onClick={(e) => handleMobileNavClick(e, '#affiliations')}>Affiliations</a>
+              <a href="#schedule" onClick={(e) => handleMobileNavClick(e, '#schedule')}>Chamber</a>
+              <a 
+                href="/gallery" 
+                className={currentRoute === '/gallery' ? 'active' : ''}
+                onClick={(e) => {
+                  if (onNavigate) {
+                    e.preventDefault();
+                    closeMenu();
+                    onNavigate('/gallery');
+                  }
+                }}
+              >
+                Gallery
+              </a>
+              <a href="#reviews" onClick={(e) => handleMobileNavClick(e, '#reviews')}>Consultation</a>
               <button
                 type="button"
                 className="mobile-drawer-btn"
@@ -133,9 +187,6 @@ export default function Header({ onOpenAppointment, onOpenContact }) {
                 Contact Inquiries
               </button>
               <div className="mobile-drawer-actions">
-                <a href={`tel:${DOCTOR_INFO.chamber.phone}`} className="mobile-phone-btn" onClick={closeMenu}>
-                  <Phone size={16} /> Serial: {DOCTOR_INFO.chamber.phone}
-                </a>
                 <button
                   type="button"
                   className="btn btn-primary mobile-appointment-btn"

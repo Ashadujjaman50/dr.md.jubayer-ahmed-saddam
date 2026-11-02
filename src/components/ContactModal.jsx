@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Send, Phone, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { X, Send, Phone, AlertCircle, CheckCircle2, MessageCircle } from 'lucide-react';
 import { DOCTOR_INFO } from '../data/doctorConfig';
 import { submitContactMessage } from '../services/contactService';
 import './Modal.css';
@@ -76,7 +76,7 @@ export default function ContactModal({ isOpen, onClose }) {
         aria-modal="true"
         aria-labelledby="contact-modal-title"
       >
-        
+
         <div className="modal-header">
           <div className="modal-title-group">
             <h3 className="modal-title" id="contact-modal-title">Chamber Inquiry & Message</h3>
@@ -118,11 +118,23 @@ export default function ContactModal({ isOpen, onClose }) {
               <div className="direct-call-alert">
                 <Phone size={20} className="alert-icon" />
                 <div className="alert-text">
-                  <strong>For quick phone assistance:</strong>
-                  <p>You can reach the Ashuganj chamber serial desk at:</p>
-                  <a href={`tel:${DOCTOR_INFO.chamber.phone}`} className="alert-phone-btn">
-                    <span>Call {DOCTOR_INFO.chamber.phone}</span>
-                  </a>
+                  <strong>Direct Chamber Serial &amp; WhatsApp:</strong>
+                  <p>Reach out directly for appointments or clinical inquiries:</p>
+                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.4rem' }}>
+                    <a href="tel:01841822442" className="alert-phone-btn">
+                      <span>Dhaka: 01841-822442</span>
+                    </a>
+                    <a href="tel:01771358595" className="alert-phone-btn">
+                      <span>Ashuganj: 01771-358595</span>
+                    </a>
+                    <a href="tel:01766662233" className="alert-phone-btn">
+                      <span>Brahmanbaria: 01766-662233</span>
+                    </a>
+                    <a href={DOCTOR_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="alert-phone-btn" style={{ background: '#059669' }}>
+                      <MessageCircle size={14} />
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -206,6 +218,17 @@ export default function ContactModal({ isOpen, onClose }) {
                   value={formData.message}
                   onChange={handleChange}
                 ></textarea>
+              </div>
+
+              {/* Direct WhatsApp Callout */}
+              <div style={{ marginBottom: '1.25rem', padding: '0.65rem 0.85rem', background: '#ECFDF5', border: '1px solid #A7F3D0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', color: '#065F46' }}>
+                  <MessageCircle size={16} />
+                  <span>Direct WhatsApp Assistance</span>
+                </div>
+                <a href={DOCTOR_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.8rem', fontWeight: 600, color: '#047857', textDecoration: 'underline' }}>
+                  Open WhatsApp &rarr;
+                </a>
               </div>
 
               <div className="modal-actions">
