@@ -36,9 +36,11 @@ export default function Footer({ onOpenAppointment, onOpenContact, onOpenLegal, 
                 className="footer-logo-img" 
               />
             </div>
-            <span className="footer-title">{DOCTOR_INFO.name}</span>
+            <div className="footer-brand-text">
+              <span className="footer-title">{DOCTOR_INFO.name}</span>
+              <span className="footer-bangla-name bangla-text">{DOCTOR_INFO.banglaName}</span>
+            </div>
           </div>
-          <p className="footer-bangla-name bangla-text">{DOCTOR_INFO.banglaName}</p>
           <p className="footer-desc">
             <strong>{DOCTOR_INFO.title}</strong>, Department of Surgery <br />
             {DOCTOR_INFO.currentInstitution} <br />
@@ -68,7 +70,7 @@ export default function Footer({ onOpenAppointment, onOpenContact, onOpenLegal, 
             </div>
             <div className="f-item">
               <MapPin size={16} className="f-icon" />
-              <span><strong>Ashuganj:</strong> নিউ গ্রীণ লাইফ হাসপাতাল (<a href="tel:01771358595" className="f-phone">01771-358595</a>)</span>
+              <span><strong>Ashuganj:</strong> নিউ গ্রীণ লাইফ হাসপাতাল (<a href="tel:01771358595" className="f-phone">01771-358595</a>, <a href="tel:01308229576" className="f-phone">01308-229576</a>)</span>
             </div>
             <div className="f-item">
               <MapPin size={16} className="f-icon" />

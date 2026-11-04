@@ -17,26 +17,35 @@ export const sanitizeInput = (str, maxLength = 500) => {
   if (!str) return '';
   return String(str)
     .replace(/[<>]/g, '') // remove HTML tag brackets
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '') // remove ASCII control characters
+    .replace(/[\u202A-\u202E\u2066-\u2069]/g, '') // remove Unicode bidirectional overrides
     .trim()
     .slice(0, maxLength);
+};
+
+// Sanitize single-line text and strip CRLF to prevent header/newline injection
+export const sanitizeSingleLine = (str, maxLength = 150) => {
+  if (!str) return '';
+  return sanitizeInput(str, maxLength).replace(/[\r\n]/g, ' ').replace(/\s+/g, ' ').trim();
 };
 
 export const submitContactMessage = async (formData) => {
   const errors = [];
 
-  const rawName = sanitizeInput(formData.name, 100);
+  const rawName = sanitizeSingleLine(formData.name, 100);
   const rawPhone = normalizeBengaliDigits(formData.phone || '').trim();
-  const rawEmail = sanitizeInput(formData.email, 100);
-  const rawSubject = sanitizeInput(formData.subject || 'Consultation Inquiry', 150);
+  const rawEmail = sanitizeSingleLine(formData.email, 100);
+  const rawSubject = sanitizeSingleLine(formData.subject || 'Consultation Inquiry', 150);
   const rawMessage = sanitizeInput(formData.message, 2000);
 
   if (!rawName) {
     errors.push('Your name is required.');
   }
 
+  const digitsOnly = rawPhone.replace(/\D/g, '');
   if (!rawPhone) {
     errors.push('A contact phone number is required.');
-  } else if (!/^[0-9+-\s()]{8,18}$/.test(rawPhone)) {
+  } else if (!/^[0-9+-\s()]{8,18}$/.test(rawPhone) || digitsOnly.length < 7 || digitsOnly.length > 15) {
     errors.push('Please enter a valid contact phone number (e.g., 01771-358595).');
   }
 

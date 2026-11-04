@@ -88,7 +88,7 @@ export default function LocationHours({ onOpenAppointment }) {
                   <span className="info-label">Serial & Inquiry Hotline:</span>
                   <div className="hotline-links-group">
                     {chamber.serialPhones.map((ph, idx) => (
-                      <a key={idx} href={`tel:${ph}`} className="phone-hotline-link">
+                      <a key={idx} href={`tel:${ph.replace(/[^\d+]/g, '')}`} className="phone-hotline-link">
                         {ph}
                       </a>
                     ))}

@@ -88,6 +88,7 @@
   font-size: 0.775rem;
   font-weight: 600;
   border-radius: var(--radius-sm);
+  white-space: nowrap;
 }
 
 .hotline-links-group {
@@ -336,5 +337,8 @@
   .info-item {
     gap: 0.75rem;
     padding: 0.75rem;
+  }
+  .closed-days-pill {
+    white-space: normal;
   }
 }

@@ -57,7 +57,7 @@ export default function Hero({ onOpenAppointment, onOpenContact }) {
                 Chamber Consultations:
               </span>
               <span className="schedule-hours-pill">
-                Dhaka • Ashuganj (Thu) • Brahmanbaria (Fri)
+                Dhaka • Ashuganj (Thu & Fri) • Brahmanbaria (Fri)
               </span>
             </div>
           </div>

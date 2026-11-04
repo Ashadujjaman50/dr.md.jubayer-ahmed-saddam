@@ -127,6 +127,9 @@ export default function ContactModal({ isOpen, onClose }) {
                     <a href="tel:01771358595" className="alert-phone-btn">
                       <span>Ashuganj: 01771-358595</span>
                     </a>
+                    <a href="tel:01308229576" className="alert-phone-btn">
+                      <span>Ashuganj: 01308-229576</span>
+                    </a>
                     <a href="tel:01766662233" className="alert-phone-btn">
                       <span>Brahmanbaria: 01766-662233</span>
                     </a>

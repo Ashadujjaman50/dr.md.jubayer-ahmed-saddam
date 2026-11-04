@@ -61,11 +61,11 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
       const day = d.getDay();
       let match = false;
       if (chamberId === 'ashuganj') {
-        match = (day === 4); // Thursday
+        match = (day === 4 || day === 5); // Thursday & Friday
       } else if (chamberId === 'brahmanbaria') {
         match = (day === 5); // Friday
       } else {
-        // Dhaka: daily except Thursday (4) & Friday (5)
+        // Dhaka: Saturday to Wednesday (daily except Thursday 4 & Friday 5)
         match = (day !== 4 && day !== 5);
       }
 
@@ -188,7 +188,7 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
                   <p>Please call the chamber serial desk or message on WhatsApp:</p>
                   <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.4rem' }}>
                     {currentChamber.serialPhones.map((ph, idx) => (
-                      <a key={idx} href={`tel:${ph}`} className="alert-phone-btn">
+                      <a key={idx} href={`tel:${ph.replace(/[^\d+]/g, '')}`} className="alert-phone-btn">
                         <Phone size={14} />
                         <span>Call {ph}</span>
                       </a>

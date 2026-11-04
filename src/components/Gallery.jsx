@@ -191,9 +191,10 @@ export default function Gallery({ onNavigate, onOpenAppointment }) {
             className="gallery-back-btn"
             onClick={() => onNavigate('/')}
             aria-label="Back to Home"
+            title="Back to Home"
           >
             <ArrowLeft size={18} />
-            <span>Back to Home</span>
+            <span className="gallery-back-text">Back to Home</span>
           </button>
         </div>
       </div>

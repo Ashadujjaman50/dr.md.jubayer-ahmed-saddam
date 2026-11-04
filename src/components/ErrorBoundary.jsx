@@ -98,7 +98,7 @@ export default class ErrorBoundary extends React.Component {
               </span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.875rem' }}>
                 <span><strong>Dhaka (Health and Hope):</strong> <a href="tel:01841822442" style={{ color: '#0D9488', textDecoration: 'none' }}>01841-822442</a></span>
-                <span><strong>Ashuganj (New Green Life):</strong> <a href="tel:01771358595" style={{ color: '#0D9488', textDecoration: 'none' }}>01771-358595</a></span>
+                <span><strong>Ashuganj (New Green Life):</strong> <a href="tel:01771358595" style={{ color: '#0D9488', textDecoration: 'none' }}>01771-358595</a>, <a href="tel:01308229576" style={{ color: '#0D9488', textDecoration: 'none' }}>01308-229576</a></span>
                 <span><strong>Brahmanbaria (Labaid):</strong> <a href="tel:01766662233" style={{ color: '#0D9488', textDecoration: 'none' }}>01766-662233</a></span>
                 <span><strong>WhatsApp:</strong> <a href={DOCTOR_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#059669', fontWeight: 600, textDecoration: 'none' }}>{DOCTOR_INFO.whatsapp}</a></span>
               </div>

@@ -63,7 +63,7 @@ export default function LegalModal({ type, onClose }) {
           content: (
             <>
               <p>
-                <strong>Visiting Chambers:</strong> {DOCTOR_INFO.name} conducts consultations across three chambers: Dhaka (Health and Hope Hospital: Daily 3:00 PM – 8:00 PM, closed Thu &amp; Fri), Ashuganj (নিউ গ্রীণ লাইফ হাসপাতাল: Every Thursday 3:00 PM – 8:00 PM), and Brahmanbaria (ল্যাবএইড ডায়াগনস্টিক লিঃ: Every Friday 9:00 AM – 2:00 PM).
+                <strong>Visiting Chambers:</strong> {DOCTOR_INFO.name} conducts consultations across three chambers: Dhaka (Health and Hope Hospital: Saturday to Wednesday 3:00 PM – 8:00 PM, closed Thu &amp; Fri), Ashuganj (নিউ গ্রীণ লাইফ হাসপাতাল: Every Thursday &amp; Friday 3:00 PM – 8:00 PM), and Brahmanbaria (ল্যাবএইড ডায়াগনস্টিক লিঃ: Every Friday 9:00 AM – 2:00 PM).
               </p>
               <p>
                 <strong>Serial Booking:</strong> Appointment serials are allocated on a prioritized booking basis. Advance booking through the chamber serial hotlines or WhatsApp helps reduce waiting times.
