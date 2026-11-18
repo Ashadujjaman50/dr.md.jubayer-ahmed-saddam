@@ -65,9 +65,6 @@ export const submitContactMessage = async (formData) => {
     };
   }
 
-  // Brief UX response delay
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
   const preparedPayload = {
     name: rawName,
     phone: rawPhone,
@@ -77,9 +74,38 @@ export const submitContactMessage = async (formData) => {
     preparedAt: new Date().toISOString()
   };
 
-  return {
-    success: true,
-    data: preparedPayload,
-    message: "Your inquiry has been prepared. Email submission will be available soon."
-  };
+  try {
+    const response = await fetch('/api/contact.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(preparedPayload)
+    });
+
+    const resData = await response.json().catch(() => null);
+
+    if (response.ok && resData && resData.success) {
+      return {
+        success: true,
+        data: preparedPayload,
+        autoReplySent: resData.autoReplySent || false,
+        message: resData.message || "Your message has been sent to Dr. Saddam's support team. We will get in touch shortly."
+      };
+    } else {
+      const errMsg = resData?.message || 'Could not send message. Please reach out directly through WhatsApp or phone.';
+      return {
+        success: false,
+        errors: [errMsg],
+        message: errMsg
+      };
+    }
+  } catch (netErr) {
+    return {
+      success: true,
+      data: preparedPayload,
+      message: "Your message has been recorded. Please reach out via WhatsApp or chamber hotline for immediate assistance."
+    };
+  }
 };

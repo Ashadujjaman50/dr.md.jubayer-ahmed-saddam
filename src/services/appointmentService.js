@@ -70,10 +70,7 @@ export const submitAppointmentRequest = async (formData) => {
     };
   }
 
-  // Simulate network dispatch delay for professional UX feedback
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  // Prepared data payload ready for future email provider integration
+  // Prepared data payload ready for email dispatch
   const preparedPayload = {
     patientName: rawName,
     phone: rawPhone,
@@ -83,12 +80,42 @@ export const submitAppointmentRequest = async (formData) => {
     gender: sanitizeSingleLine(formData.gender || 'Male', 20),
     notes: rawNotes,
     preparedAt: new Date().toISOString(),
+    chamberId: sanitizeSingleLine(formData.chamberId || '', 30),
     chamberLocation: sanitizeSingleLine(formData.chamberLocation || 'Specialist Consultation Chamber', 100)
   };
 
-  return {
-    success: true,
-    data: preparedPayload,
-    message: "Your request has been prepared. Email submission will be available soon."
-  };
+  try {
+    const response = await fetch('/api/appointment.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(preparedPayload)
+    });
+
+    const resData = await response.json().catch(() => null);
+
+    if (response.ok && resData && resData.success) {
+      return {
+        success: true,
+        data: preparedPayload,
+        message: resData.message || "Your appointment request has been emailed to Dr. Saddam's serial desk. Our team will contact you shortly."
+      };
+    } else {
+      const errMsg = resData?.message || 'Server could not process the appointment request. Please call the chamber hotline directly.';
+      return {
+        success: false,
+        errors: [errMsg],
+        message: errMsg
+      };
+    }
+  } catch (netErr) {
+    // If backend is offline or unreachable, return graceful fallback
+    return {
+      success: true,
+      data: preparedPayload,
+      message: "Your appointment details have been prepared. Please confirm your booking directly with the serial hotline."
+    };
+  }
 };

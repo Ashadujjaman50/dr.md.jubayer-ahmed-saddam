@@ -95,7 +95,7 @@ export default function ContactModal({ isOpen, onClose }) {
               <div className="feedback-icon-wrapper">
                 <CheckCircle2 size={42} className="feedback-check-icon" />
               </div>
-              <h4 className="feedback-title">Inquiry Prepared</h4>
+              <h4 className="feedback-title">Inquiry Sent Successfully</h4>
               <p className="feedback-message">
                 {preparedNotice.message}
               </p>
@@ -115,28 +115,52 @@ export default function ContactModal({ isOpen, onClose }) {
                 </div>
               </div>
 
-              <div className="direct-call-alert">
-                <Phone size={20} className="alert-icon" />
-                <div className="alert-text">
-                  <strong>Direct Chamber Serial &amp; WhatsApp:</strong>
-                  <p>Reach out directly for appointments or clinical inquiries:</p>
-                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.4rem' }}>
-                    <a href="tel:01841822442" className="alert-phone-btn">
-                      <span>Dhaka: 01841-822442</span>
-                    </a>
-                    <a href="tel:01771358595" className="alert-phone-btn">
-                      <span>Ashuganj: 01771-358595</span>
-                    </a>
-                    <a href="tel:01308229576" className="alert-phone-btn">
-                      <span>Ashuganj: 01308-229576</span>
-                    </a>
-                    <a href="tel:01766662233" className="alert-phone-btn">
-                      <span>Brahmanbaria: 01766-662233</span>
-                    </a>
-                    <a href={DOCTOR_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="alert-phone-btn" style={{ background: '#059669' }}>
-                      <MessageCircle size={14} />
-                      <span>WhatsApp</span>
-                    </a>
+              <div className="modal-hotline-card">
+                <div className="modal-hotline-header">
+                  <div className="modal-hotline-title-group">
+                    <Phone size={17} className="hotline-icon" />
+                    <span className="modal-hotline-title">Direct Chamber Serial &amp; WhatsApp:</span>
+                  </div>
+                  <a
+                    href={DOCTOR_INFO.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="modal-whatsapp-badge"
+                    title="Direct WhatsApp Assistance"
+                    aria-label="Direct WhatsApp Assistance"
+                  >
+                    <MessageCircle size={15} />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+
+                <p className="modal-hotline-sub">Reach out directly for appointments or clinical inquiries:</p>
+
+                <div className="modal-chamber-lines">
+                  <div className="modal-chamber-line">
+                    <span className="chamber-dot" />
+                    <span className="modal-chamber-city">Dhaka:</span>
+                    <div className="chamber-numbers-group">
+                      <a href="tel:01841822442" className="modal-hotline-number">01841-822442</a>
+                    </div>
+                  </div>
+
+                  <div className="modal-chamber-line">
+                    <span className="chamber-dot" />
+                    <span className="modal-chamber-city">Ashuganj:</span>
+                    <div className="chamber-numbers-group">
+                      <a href="tel:01771358595" className="modal-hotline-number">01771-358595</a>
+                      <span className="number-sep">,</span>
+                      <a href="tel:01308229576" className="modal-hotline-number">01308-229576</a>
+                    </div>
+                  </div>
+
+                  <div className="modal-chamber-line">
+                    <span className="chamber-dot" />
+                    <span className="modal-chamber-city">Brahmanbaria:</span>
+                    <div className="chamber-numbers-group">
+                      <a href="tel:01766662233" className="modal-hotline-number">01766-662233</a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -249,7 +273,7 @@ export default function ContactModal({ isOpen, onClose }) {
                   disabled={loading}
                 >
                   <Send size={16} />
-                  <span>{loading ? 'Preparing Inquiry...' : 'Prepare Message'}</span>
+                  <span>{loading ? 'Sending Message...' : 'Send Message'}</span>
                 </button>
               </div>
             </form>

@@ -156,7 +156,7 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
               <div className="feedback-icon-wrapper">
                 <CheckCircle2 size={42} className="feedback-check-icon" />
               </div>
-              <h4 className="feedback-title">Appointment Request Prepared</h4>
+              <h4 className="feedback-title">Appointment Request Submitted</h4>
               <p className="feedback-message">
                 {preparedNotice.message}
               </p>
@@ -181,22 +181,41 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
               </div>
 
               {/* Direct Hotline Notice */}
-              <div className="direct-call-alert">
-                <Hospital size={20} className="alert-icon" />
-                <div className="alert-text">
-                  <strong>Need immediate serial confirmation?</strong>
-                  <p>Please call the chamber serial desk or message on WhatsApp:</p>
-                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.4rem' }}>
-                    {currentChamber.serialPhones.map((ph, idx) => (
-                      <a key={idx} href={`tel:${ph.replace(/[^\d+]/g, '')}`} className="alert-phone-btn">
-                        <Phone size={14} />
-                        <span>Call {ph}</span>
-                      </a>
-                    ))}
-                    <a href={DOCTOR_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="alert-phone-btn" style={{ background: '#059669' }}>
-                      <MessageCircle size={14} />
-                      <span>WhatsApp</span>
-                    </a>
+              <div className="modal-hotline-card">
+                <div className="modal-hotline-header">
+                  <div className="modal-hotline-title-group">
+                    <Hospital size={17} className="hotline-icon" />
+                    <span className="modal-hotline-title">Need immediate serial confirmation?</span>
+                  </div>
+                  <a
+                    href={DOCTOR_INFO.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="modal-whatsapp-badge"
+                    title="Direct WhatsApp Assistance"
+                    aria-label="Direct WhatsApp Assistance"
+                  >
+                    <MessageCircle size={15} />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+
+                <p className="modal-hotline-sub">Please call the chamber serial desk or message on WhatsApp:</p>
+
+                <div className="modal-chamber-lines">
+                  <div className="modal-chamber-line">
+                    <span className="chamber-dot" />
+                    <span className="modal-chamber-city">{currentChamber.city}:</span>
+                    <div className="chamber-numbers-group">
+                      {currentChamber.serialPhones.map((ph, idx) => (
+                        <React.Fragment key={idx}>
+                          {idx > 0 && <span className="number-sep">,</span>}
+                          <a href={`tel:${ph.replace(/[^\d+]/g, '')}`} className="modal-hotline-number">
+                            {ph}
+                          </a>
+                        </React.Fragment>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -361,7 +380,7 @@ export default function AppointmentModal({ isOpen, onClose, initialServiceId }) 
                   disabled={loading}
                 >
                   <Calendar size={16} />
-                  <span>{loading ? 'Preparing Request...' : 'Prepare Request'}</span>
+                  <span>{loading ? 'Submitting Request...' : 'Submit Request'}</span>
                 </button>
               </div>
             </form>

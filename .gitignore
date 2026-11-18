@@ -17,6 +17,8 @@ coverage/
 .env.test.local
 .env.production.local
 !.env.example
+public/api/config.php
+!public/api/config.sample.php
 
 # Logs
 *.log
