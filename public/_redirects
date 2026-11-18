@@ -1,0 +1,5 @@
+/api/appointment.php   /.netlify/functions/appointment   200!
+/api/appointment       /.netlify/functions/appointment   200!
+/api/contact.php       /.netlify/functions/contact       200!
+/api/contact           /.netlify/functions/contact       200!
+/*                     /index.html                       200

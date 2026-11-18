@@ -85,7 +85,7 @@ export const submitAppointmentRequest = async (formData) => {
   };
 
   try {
-    const response = await fetch('/api/appointment.php', {
+    const response = await fetch('/api/appointment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
